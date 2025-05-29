@@ -86,7 +86,8 @@ using System.Threading.Tasks;
                     
                         else result.Append(wrapped.Trim());
 
-                        // how does this work? It decrements 'i' by as many characters as were removed during formatting, or none if 'i' is 1.
+                        // how does this work?
+                        // It decrements 'i' by as many characters as were removed during formatting, or none if 'i' is 1.
                         // 'i' represents how many characters there are in the string.
                         // also decrement by an additional index if any characters have been removed to compansate for any special characters
 

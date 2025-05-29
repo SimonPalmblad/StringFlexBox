@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-public class BoxOutline : Textboxable, IFormattableBox
+public class BoxVertical : StringFlexBox, IFormattableBox
 {
-    public BoxOutline(List<Textboxable> box, int[] padding)
+    public BoxVertical(List<StringFlexBox> box, Padding padding)
         :base(box, padding)
     {
         BuildTexts();
     }
     
-    public BoxOutline(List<Textboxable> box, int padding)
-    : base(box, padding)
+    public BoxVertical(List<StringFlexBox> box, int padding)
+    : base(box, new Padding(padding))
     {
         BuildTexts();
     }

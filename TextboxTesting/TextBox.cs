@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text;
 
-public class TextBox : Textboxable
+public class TextBox : StringFlexBox
 {
     public static int minWidth { get; } = 10;
     private string sourceText;
@@ -34,24 +34,22 @@ public class TextBox : Textboxable
         }
     }
 
-    public int[] Padding => padding;
-
     public static TextBox Empty =>
-        new TextBox(string.Empty, 0, new int[4] {0,0,0,0} );
+        new TextBox(string.Empty, 0, new Padding(0) );
 
     public TextBox(string text, int textWidth, int padding)
-        : this (text, textWidth, new int[] { padding, padding, padding, padding})
+        : this (text, textWidth, new Padding(padding))
     {
     }
 
-    public TextBox(string text, int textWidth, int[] _padding)
+    public TextBox(string text, int textWidth, Padding padding)
         : base ()
     {
         sourceText = text;
-        padding = _padding;
+        Padding = padding;
         this.textWidth = textWidth;
 
-        sources = new List<Textboxable>() { this };
+        sources = new List<StringFlexBox>() { this };
 
         StringBuilder builder = new StringBuilder();
         text = text.WordWrapWithList(textWidth, out var formatAsList);
@@ -63,8 +61,22 @@ public class TextBox : Textboxable
         height = content.Count;
     }
 
+    protected override void AppendTopOfBox(StringBuilder builder)
+    {
+        var topPaddingContent = VerticalPadding(Padding.Side.Top);
+        builder.Append(topPaddingContent);
+    }
+
+    protected override void AppendBottomOfBox(StringBuilder builder)
+    {
+        var botPaddingContent = VerticalPadding(Padding.Side.Bottom);
+        paddingHeightOffset += VerticalPaddingConversion(Padding.GetSide(Padding.Side.Bottom));
+        builder.Append(botPaddingContent);
+    }
+
     protected override void AppendContent(StringBuilder builder)
     {
+
         for (int i = 0; i < texts.Count(); i++)
         {
             var newLineRemoved = texts[i].Replace(Environment.NewLine, string.Empty);
@@ -78,39 +90,34 @@ public class TextBox : Textboxable
             builder.Append(result)
                    .AppendLine();            
         }
+        
+        #region Bottom line padding
+   
+        #endregion
+
     }
 
     protected void AppendTextLineEnd(StringBuilder builder, int lineIndex, int width)
     {
         // subtract already added text on left side padding.
-        var lineFill = Math.Max(width - (texts[lineIndex].Count() + padding[(int)TextboxPadding.left]), 0); 
+        var lineFill = Math.Max(width - (texts[lineIndex].Count() + Padding.GetSide(Padding.Side.Left)), 0); 
 
-        var result = StringHelpers.Fill(lineFill) + VerticalBorder;
+        var result = StringHelpers.Fill(lineFill) + flexBoxBorder.RightBorder;
         builder.Append(result);
     }
 
-    protected override string TopLine() =>
-        $"{Corners[(int)TextboxCorners.topLeft]}" +
-        $"{new string(HorizontalBorder, BoxWidth())}" +
-        $"{Corners[(int)TextboxCorners.topRight]}";
-
-    protected override string BottomLine() =>
-        $"{Corners[(int)TextboxCorners.bottomLeft]}" +
-        $"{new string(HorizontalBorder, BoxWidth())}" +
-        $"{Corners[(int)TextboxCorners.bottomRight]}";
-
-    protected override string VerticalPadding(TextboxPadding padding)
+    protected override string VerticalPadding(Padding.Side padding)
     {
         StringBuilder builder = new StringBuilder();
         var width = VerticalPaddingWidth;
-        var convertedPadding = VerticalPaddingConversion(GetPadding(padding));
+        var convertedPadding = VerticalPaddingConversion(Padding.GetSide(padding));
 
         for (int i = 0; i < convertedPadding; i++)
         {
             var paddingString =
-                $"{VerticalBorder}" +
+                $"{flexBoxBorder.LeftBorder}" +
                 $"{StringHelpers.Fill(width)}" +
-                $"{VerticalBorder}";
+                $"{flexBoxBorder.RightBorder}";
             
             content.Add(paddingString);
             builder.AppendLine(paddingString);
@@ -129,7 +136,7 @@ public class TextBox : Textboxable
 
 
     public static int SetBoxWidth(int _width) => Math.Max(minWidth, _width);
-    public TextBox Resize(int _width) => new TextBox(this.sourceText, _width, this.padding);
+    public TextBox Resize(int _width) => new TextBox(this.sourceText, _width, Padding);
 
     /// <summary>
     /// Attemps to get text at the specified <paramref name="line"/>, if valid.

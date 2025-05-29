@@ -1,0 +1,15 @@
+S:\Programming projects\TextBoxRebuild\TextboxTesting\obj\Debug\net9.0\TextboxRebuild.GeneratedMSBuildEditorConfig.editorconfig
+S:\Programming projects\TextBoxRebuild\TextboxTesting\obj\Debug\net9.0\TextboxRebuild.AssemblyInfoInputs.cache
+S:\Programming projects\TextBoxRebuild\TextboxTesting\obj\Debug\net9.0\TextboxRebuild.AssemblyInfo.cs
+S:\Programming projects\TextBoxRebuild\TextboxTesting\obj\Debug\net9.0\TextboxRebuild.csproj.CoreCompileInputs.cache
+S:\Programming projects\TextBoxRebuild\TextboxTesting\obj\Debug\net9.0\TextboxRebuild.sourcelink.json
+S:\Programming projects\TextBoxRebuild\TextboxTesting\bin\Debug\net9.0\TextboxRebuild.exe
+S:\Programming projects\TextBoxRebuild\TextboxTesting\bin\Debug\net9.0\TextboxRebuild.deps.json
+S:\Programming projects\TextBoxRebuild\TextboxTesting\bin\Debug\net9.0\TextboxRebuild.runtimeconfig.json
+S:\Programming projects\TextBoxRebuild\TextboxTesting\bin\Debug\net9.0\TextboxRebuild.dll
+S:\Programming projects\TextBoxRebuild\TextboxTesting\bin\Debug\net9.0\TextboxRebuild.pdb
+S:\Programming projects\TextBoxRebuild\TextboxTesting\obj\Debug\net9.0\TextboxRebuild.dll
+S:\Programming projects\TextBoxRebuild\TextboxTesting\obj\Debug\net9.0\refint\TextboxRebuild.dll
+S:\Programming projects\TextBoxRebuild\TextboxTesting\obj\Debug\net9.0\TextboxRebuild.pdb
+S:\Programming projects\TextBoxRebuild\TextboxTesting\obj\Debug\net9.0\TextboxRebuild.genruntimeconfig.cache
+S:\Programming projects\TextBoxRebuild\TextboxTesting\obj\Debug\net9.0\ref\TextboxRebuild.dll

@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\TextboxTesting.csproj": {}
+    "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\TextboxRebuild.csproj": {}
   },
   "projects": {
-    "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\TextboxTesting.csproj": {
+    "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\TextboxRebuild.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\TextboxTesting.csproj",
-        "projectName": "TextboxTesting",
-        "projectPath": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\TextboxTesting.csproj",
+        "projectUniqueName": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\TextboxRebuild.csproj",
+        "projectName": "TextboxRebuild",
+        "projectPath": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\TextboxRebuild.csproj",
         "packagesPath": "C:\\Users\\simon\\.nuget\\packages\\",
         "outputPath": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\obj\\",
         "projectStyle": "PackageReference",

@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "S:\\Dropbox\\Projekt\\Csharp\\TextboxTesting\\TextboxTesting.csproj",
-      "projectName": "TextboxTesting",
-      "projectPath": "S:\\Dropbox\\Projekt\\Csharp\\TextboxTesting\\TextboxTesting.csproj",
+      "projectUniqueName": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\TextboxRebuild.csproj",
+      "projectName": "TextboxRebuild",
+      "projectPath": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\TextboxRebuild.csproj",
       "packagesPath": "C:\\Users\\simon\\.nuget\\packages\\",
-      "outputPath": "S:\\Dropbox\\Projekt\\Csharp\\TextboxTesting\\obj\\",
+      "outputPath": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

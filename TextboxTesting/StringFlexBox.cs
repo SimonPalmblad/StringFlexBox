@@ -1,28 +1,11 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using TextboxTesting;
 
-public enum TextboxPadding { left, right, top, bottom};
 public enum TextboxCorners { topLeft , topRight, bottomLeft, bottomRight };
 
-public interface IPaddable
+public interface IFlexableTextContainer
 {
-
-    public int GetPadding(TextboxPadding side);
-    public int GetPadding(int index);
-    public int[] GetAllPadding();
-
-    public void SetPadding(TextboxPadding side, int amount);
-    public void SetPadding(int index, int amount);
-    public void SetAllPadding(int amount);
-
-    public string PaddingString(TextboxPadding side, int extraPadding = 0);
-    public string PaddingString(int paddingIndex, int extraPadding = 0);
-}
-
-public interface ITextboxable
-{
-    public List<Textboxable> Sources { get; }
+    public List<StringFlexBox> Sources { get; }
     public string FormattedText { get; }
     public string TextWithoutEscapeChars { get; }
 
@@ -40,12 +23,14 @@ public interface ITextboxable
     public int Rows();
 }
 
-public abstract class Textboxable : ITextboxable, IPaddable, IFormattableBox
+public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
 {
-    public List<Textboxable> Sources => sources;
-    protected List<Textboxable> sources;
-    protected IPaddable paddableInterface;
+    public List<StringFlexBox> Sources => sources;
+    public Padding Padding = new Padding();
+    public FlexBoxBorder flexBoxBorder = FlexBoxBorder.Default;
 
+    protected List<StringFlexBox> sources;
+    
     protected string formattedText = string.Empty;
     protected string textWithoutEscapeChars = string.Empty;
     protected int width = 0;
@@ -60,37 +45,31 @@ public abstract class Textboxable : ITextboxable, IPaddable, IFormattableBox
     public int Width => BoxWidth();
     public int Height => BoxHeight();
 
-    protected Textboxable? widestSource;
-    protected Textboxable? tallestSource;
+    protected StringFlexBox widestSource;
+    protected StringFlexBox tallestSource;
 
     protected List<string> texts = new List<string>();
     protected List<string> content = new List<string>();
 
     protected bool isDirty;
 
-    public char VerticalBorder = '│';
-    public char HorizontalBorder = '─';
-    public char[] Corners = new char[4] { '┌', '┐', '└', '┘' };
-
-    protected int[] padding = new int[4] { 0, 0, 0, 0 };
-
-    public Textboxable()
+    public StringFlexBox()
     {
-        sources = new List<Textboxable>();
+        sources = new List<StringFlexBox>();
     }
 
-    public Textboxable(List<Textboxable> sources, int[] padding)
+    public StringFlexBox(List<StringFlexBox> sources, Padding padding)
     {
 
         this.sources = sources;
-        this.padding = padding;
+        Padding = padding;
 
-        widestSource = sources?.OrderByDescending(x => x.Width).First();
-        tallestSource = sources?.OrderByDescending(x => x.Height).First();
+        widestSource = sources.OrderByDescending(x => x.Width).First();
+        tallestSource = sources.OrderByDescending(x => x.Height).First();
     }
 
-    public Textboxable(List<Textboxable> sources, int padding)
-        : this(sources, [padding, padding, padding, padding])
+    public StringFlexBox(List<StringFlexBox> sources, int padding)
+        : this(sources, new Padding(padding))
     { }
 
     protected virtual string BuildTextBox()
@@ -102,12 +81,15 @@ public abstract class Textboxable : ITextboxable, IPaddable, IFormattableBox
             content.Add(TopLine());
         #endregion
 
+        AppendTopOfBox(builder);
+
         // All text content
         AppendContent(builder);
 
+        AppendBottomOfBox(builder);
 
         #region Bottom Line logic
-            builder.Append(BottomLine()).AppendLine();
+        builder.Append(BottomLine()).AppendLine();
             content.Add(BottomLine());
         #endregion
 
@@ -117,14 +99,17 @@ public abstract class Textboxable : ITextboxable, IPaddable, IFormattableBox
         return builder.ToString();
     }
 
-    protected virtual void AppendContent(StringBuilder builder)
-    {        
+    protected virtual void AppendTopOfBox(StringBuilder builder)
+    {
         #region Top line padding
-            var topPaddingContent = VerticalPadding(TextboxPadding.top);
-            builder.Append(topPaddingContent);
+        var topPaddingContent = VerticalPadding(Padding.Side.Top);
+        builder.Append(topPaddingContent);
 
         #endregion
+    }
 
+    protected virtual void AppendContent(StringBuilder builder)
+    {        
         for (int s = 0; s < Sources.Count(); s++)
         {
             for (int i = 0; i < Sources[s].Content().Count; i++)
@@ -144,18 +129,22 @@ public abstract class Textboxable : ITextboxable, IPaddable, IFormattableBox
                 // Store information in this class
                 builder.Append(result);
             }
-
-            #region Bottom line padding
-            var botPaddingContent = VerticalPadding(TextboxPadding.bottom);
-            paddingHeightOffset += VerticalPaddingConversion(GetPadding(TextboxPadding.bottom));
-            builder.Append(botPaddingContent);
-            #endregion
         }
     }
+
+    protected virtual void AppendBottomOfBox(StringBuilder builder)
+    {
+        #region Bottom line padding
+            var botPaddingContent = VerticalPadding(Padding.Side.Bottom);
+            paddingHeightOffset += VerticalPaddingConversion(Padding.GetSide(Padding.Side.Bottom));
+            builder.Append(botPaddingContent);
+        #endregion
+    }
+
     protected virtual void AppendLeftPadding(StringBuilder builder)
     {
         // -2 is to offset for the vertical borders being added. Why 2???
-        builder.Append(VerticalBorder + PaddingString(TextboxPadding.left));
+        builder.Append(flexBoxBorder.LeftBorder + Padding.PaddingString(Padding.Side.Left));
     }
 
     protected virtual void AppendRightPadding(StringBuilder builder, int sourceIndex)
@@ -163,19 +152,19 @@ public abstract class Textboxable : ITextboxable, IPaddable, IFormattableBox
         // how much padding should be added 
         var widthOffset = Math.Max(widestSource.BoxWidth() - sources[sourceIndex].BoxWidth(), 0);
         // -2 is to offset for the vertical borders being added. Why 2???
-        builder.Append(PaddingString(TextboxPadding.right) + StringHelpers.Fill(widthOffset) + VerticalBorder );
+        builder.Append(Padding.PaddingString(Padding.Side.Right) + StringHelpers.Fill(widthOffset) + flexBoxBorder.RightBorder );
 
     }
 
     protected virtual string TopLine() =>
-        $"{Corners[(int)TextboxCorners.topLeft]}" +
-        $"{new string(HorizontalBorder, (BoxWidth()))}" +
-        $"{Corners[(int)TextboxCorners.topRight]}";
+        $"{flexBoxBorder.TopLeftCorner}" +
+        $"{new string(flexBoxBorder.TopBorder, BoxWidth())}" +
+        $"{flexBoxBorder.TopRightCorner}";
 
     protected virtual string BottomLine() =>
-        $"{Corners[(int)TextboxCorners.bottomLeft]}" +
-        $"{new string(HorizontalBorder, (BoxWidth()))}" +
-        $"{Corners[(int)TextboxCorners.bottomRight]}";
+        $"{flexBoxBorder.BottomLeftCorner}" +
+        $"{new string(flexBoxBorder.BottomBorder, BoxWidth())}" +
+        $"{flexBoxBorder.BottomRightCorner}";
 
     protected virtual void BuildTexts()
     {
@@ -241,17 +230,17 @@ public abstract class Textboxable : ITextboxable, IPaddable, IFormattableBox
     }
     #endregion
    
-    protected virtual string VerticalPadding(TextboxPadding paddingSide)
+    protected virtual string VerticalPadding(Padding.Side paddingSide)
     {
         StringBuilder builder = new StringBuilder();
-        var convertedPadding = VerticalPaddingConversion(GetPadding(paddingSide));
+        var convertedPadding = VerticalPaddingConversion(Padding.GetSide(paddingSide));
 
         for (int i = 0; i < convertedPadding; i++)
         {
             var paddingString =
-                $"{VerticalBorder}" +
+                $"{flexBoxBorder.LeftBorder}" +
                 $"{StringHelpers.Fill(BoxWidth())}" +
-                $"{VerticalBorder}";
+                $"{flexBoxBorder.RightBorder}";
             
 
             content.Add(paddingString);
@@ -260,7 +249,7 @@ public abstract class Textboxable : ITextboxable, IPaddable, IFormattableBox
 
         return builder.ToString();
     }
-    protected virtual int HorizontalPadding() => padding[0] + padding[1];
+    protected virtual int HorizontalPadding() => Padding.GetSide(Padding.Side.Left) + Padding.GetSide(Padding.Side.Right);
 
     protected virtual int VerticalPaddingWidth => Width + HorizontalPadding();
 
@@ -277,33 +266,4 @@ public abstract class Textboxable : ITextboxable, IPaddable, IFormattableBox
 
         return sum;
     }
-
-
-    #region Paddable Implementation
-    public virtual int GetPadding(TextboxPadding side) =>    
-        paddableInterface.GetPadding(side);    
-
-    public virtual int GetPadding(int index) =>
-        paddableInterface.GetPadding(index);
-
-    public virtual int[] GetAllPadding() =>
-        paddableInterface.GetAllPadding();
-
-    public virtual void SetPadding(TextboxPadding side, int amount) =>
-        paddableInterface.SetPadding(side, amount); 
-
-    public virtual void SetPadding(int index, int amount) =>
-         paddableInterface.SetPadding((TextboxPadding)index, amount);
-
-    public virtual void SetAllPadding(int amount) =>
-         paddableInterface.SetAllPadding(amount);
-
-    public virtual string PaddingString(TextboxPadding side, int extraPadding = 0) =>
-         paddableInterface.PaddingString(side, extraPadding);
-
-    public virtual string PaddingString(int paddingIndex, int extraPadding = 0) =>
-         paddableInterface.PaddingString(paddingIndex, extraPadding);
-
-    #endregion
-
 }
