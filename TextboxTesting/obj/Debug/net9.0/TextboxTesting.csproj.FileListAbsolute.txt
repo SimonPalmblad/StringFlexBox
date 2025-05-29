@@ -1,0 +1,14 @@
+S:\Dropbox\Projekt\Csharp\TextboxTesting\bin\Debug\net9.0\TextboxTesting.exe
+S:\Dropbox\Projekt\Csharp\TextboxTesting\bin\Debug\net9.0\TextboxTesting.deps.json
+S:\Dropbox\Projekt\Csharp\TextboxTesting\bin\Debug\net9.0\TextboxTesting.runtimeconfig.json
+S:\Dropbox\Projekt\Csharp\TextboxTesting\bin\Debug\net9.0\TextboxTesting.dll
+S:\Dropbox\Projekt\Csharp\TextboxTesting\bin\Debug\net9.0\TextboxTesting.pdb
+S:\Dropbox\Projekt\Csharp\TextboxTesting\obj\Debug\net9.0\TextboxTesting.GeneratedMSBuildEditorConfig.editorconfig
+S:\Dropbox\Projekt\Csharp\TextboxTesting\obj\Debug\net9.0\TextboxTesting.AssemblyInfoInputs.cache
+S:\Dropbox\Projekt\Csharp\TextboxTesting\obj\Debug\net9.0\TextboxTesting.AssemblyInfo.cs
+S:\Dropbox\Projekt\Csharp\TextboxTesting\obj\Debug\net9.0\TextboxTesting.csproj.CoreCompileInputs.cache
+S:\Dropbox\Projekt\Csharp\TextboxTesting\obj\Debug\net9.0\TextboxTesting.dll
+S:\Dropbox\Projekt\Csharp\TextboxTesting\obj\Debug\net9.0\refint\TextboxTesting.dll
+S:\Dropbox\Projekt\Csharp\TextboxTesting\obj\Debug\net9.0\TextboxTesting.pdb
+S:\Dropbox\Projekt\Csharp\TextboxTesting\obj\Debug\net9.0\TextboxTesting.genruntimeconfig.cache
+S:\Dropbox\Projekt\Csharp\TextboxTesting\obj\Debug\net9.0\ref\TextboxTesting.dll
