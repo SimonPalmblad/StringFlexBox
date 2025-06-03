@@ -3,10 +3,18 @@ This library is used to create strings formatted inside of textboxes. Any string
 
 
 # Demo
+Below is a demonstration of use-cases for the String Flexbox library. It's meant both as a show-case and a tutorial for using the various functions available inside.
+1. [Creating TextBoxes](#1-creating-textboxes)
+2. [TextBoxes inside flexible boxes](#2-a-box-within-a-box)
+3. [Custom Borders](3-customize-the-borders)
+4. [Custom Padding](4-customizable-padding-options)
 
-## 1. Simple word-wrapped textboxes
-### 1A.) A textbox 20 characters wide with no padding
-```
+
+</br></br>
+## 1. Creating TextBoxes
+#### 1.a.) A textbox 20 characters wide with no padding
+Using the TextBox class you can create a flexible box with automatic word wrap of a given size. The TextBox's main functionality (as the name suggests) is to display text inside a box of given width.
+```cs
 string textDemoBasic = "This a string inside of a textbox with automatic word wrap.";
 TextBox textBoxDemoBasic = new(textDemoBasic, 20, 0);
 ```
@@ -22,8 +30,9 @@ TextBox textBoxDemoBasic = new(textDemoBasic, 20, 0);
 └────────────────────┘
 ```
 
-### 1B.) A textbox 20 characters wide with a padding of 3
-```
+#### 1.b.) A textbox 20 characters wide with a padding of 3
+Any flexible box can have padding added to sides, which adds an offset between the content and the borders of a given size.
+```cs
 string textDemoPadding = "The text can also have padding added to the box. Here's with a padding of 3.";
 TextBox textBoxDemoPadding = new(textDemoPadding, 20, 3);
 ```
@@ -40,8 +49,9 @@ TextBox textBoxDemoPadding = new(textDemoPadding, 20, 3);
 └──────────────────────────┘
 ```
 
-### 1C.) A textbox 40 characters wide with a padding of 3
-```
+#### 1.c.) A textbox 40 characters wide with a padding of 3
+Here's an example of how the box scales with a higher width!
+```cs
 string textDemoSize = "You can set a specific size for your textbox. This is double the size of the previous ones.";
 TextBox textBoxDemoSize = new(textDemoSize, 40, 3);
 ```
@@ -57,11 +67,16 @@ TextBox textBoxDemoSize = new(textDemoSize, 40, 3);
 │                                              │
 └──────────────────────────────────────────────┘
 ```
+</br></br>
+## 2. A box within a box
+This is the core of this library, is to be able to easily create dynamic, flexible boxes to organize and display content inside of them.
+There are two variants of the container boxes - vertical and horizontal.
+- Horizontal flexboxes organize content in **rows**.
+- Vertical flexboxes organize contet in **columns**.
 
-## 2. Any TextBox can be organized inside of another flexible box
-
-### Either horizontally
-```
+#### 2.a.) Either horizontally
+Content supplied to a horizontal box will be organized from leftmost (first) to rightmost (last).
+```cs
 FlexBoxHorizontal horizontalBoxes = 
 new(new List<StringFlexBox> { textBoxDemoBasic, textBoxDemoPadding}, new Padding(5));
 ```
@@ -84,8 +99,9 @@ new(new List<StringFlexBox> { textBoxDemoBasic, textBoxDemoPadding}, new Padding
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
-### Or vertically
-```
+#### 2.b.) Or vertically
+Content inside a horizontal box will be organized from top (first) to bottom (last).
+```cs
 FlexBoxVertical verticalBoxes = 
 new(new List<StringFlexBox> { textBoxDemoBasic, textBoxDemoPadding }, new Padding(2));
 ```
@@ -113,8 +129,9 @@ new(new List<StringFlexBox> { textBoxDemoBasic, textBoxDemoPadding }, new Paddin
 
 ```
 
-### Here's a horizontal box with the two previous boxes stored inside
-```
+### 2.c.) Here's a horizontal box with the two previous boxes stored inside
+The fun doesn't end here. Any flexbox can (theoretically) store an infinite number of other flexboxes inside of it. In practice, this is limited by font size and display capabilities as any textwrap by the display will break the formatting of the flexboxes.
+```cs
 FlexBoxHorizontal horizontalVerticalBoxes = 
 new (new List<StringFlexBox> {verticalBoxes, horizontalBoxes}, new Padding(2));
 ```
@@ -144,12 +161,13 @@ new (new List<StringFlexBox> {verticalBoxes, horizontalBoxes}, new Padding(2));
 │                                                                                                           │
 └───────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
+</br></br>
+## 3. Customize the borders
+All boxes can have the characters used to create the border customized. You can do this by defining a custom FlexBoxBorder class.
 
-## Customize the borders of your boxes using the FlexBoxBorder Class
-
-### Remove borders using the FlexBoxBorder.None
-The first textbox and the partent box have no borders, but they still apply padding.
-```
+### 3.a.) Remove borders using the FlexBoxBorder.None
+It's easy to replace all borders with white space. The first textbox and the partent box have no borders, but they still apply padding.
+```cs
 string textBorderless1 = "This is a textbox without any borders.";
 TextBox textBoxBorderless1 = new(textBorderless1, 30, 3, FlexBoxBorder.None);
 
@@ -172,8 +190,9 @@ new(new List<StringFlexBox> { textBoxBorderless1, textBoxBorderless2 }, 5, FlexB
                                                  └──────────────────────────────┘
 ```
 
-### Create custom borders using the FlexBoxBorder Class
-```
+### 3.b.) Create custom borders using the FlexBoxBorder Class
+If you want to use your own characters as borders it's entirely customizable by creating a custom FlexBoxBorder Class.
+```cs
 FlexBoxBorder customBorder = new FlexBoxBorder
     (
                                     // left, right, top bottom
@@ -201,12 +220,13 @@ a                                                                           b
 a                                                                           b
 3ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd4
 ```
+</br></br>
+## 4. Customizable padding options
+Padding does not have to be uniform. Any side can have a custom value set by the user.
 
-## Customizable padding options
-
-### Padding can be uniquely set for each side of the box as well
+### 4.a.) Padding can be uniquely set for each side of the box as well
 Using the Padding Class, it's possible to control all aspects of a box's padding. To implement custom padding sizes, you will have to define your sizes in the box's constructor by supplying a Padding.
-```
+```cs
 //Padding with uniform horizontal sizes and unifrom vertical sizes.
 Padding uniformAxes = new Padding(horizontalPadding: 3, verticalPadding: 10, centerPadding: 0)
 
@@ -215,7 +235,8 @@ Padding allSidesCustom = new Padding(left: 1, right: 8, top: 2, bottom: 12, 0)
 
 ```
 Creating the boxes with custom padding:
-```
+Now all you have to do is supply your custom class to any flexible box when creating it.
+```cs
 string customPaddingText1 = "This is a textbox with different horizontal and vertical padding.";
 TextBox customPaddingTextBox1 = new(customPaddingText1, 20, uniformAxes);
 
