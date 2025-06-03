@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TextboxRebuild")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+307813c766d82a21fdb7974975e6362c985e8e99")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01bec9194adeeed0fab61025a9b429b976b952d8")]
 [assembly: System.Reflection.AssemblyProductAttribute("TextboxRebuild")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TextboxRebuild")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

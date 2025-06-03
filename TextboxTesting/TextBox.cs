@@ -35,18 +35,33 @@ public class TextBox : StringFlexBox
     }
 
     public static TextBox Empty =>
-        new TextBox(string.Empty, 0, new Padding(0) );
+        new TextBox(string.Empty, 0, new Padding(0), FlexBoxBorder.Default);
 
     public TextBox(string text, int textWidth, int padding)
-        : this (text, textWidth, new Padding(padding))
+        : this (text, textWidth, new Padding(padding), FlexBoxBorder.Default)
     {
+
     }
 
     public TextBox(string text, int textWidth, Padding padding)
+    : this(text, textWidth, padding, FlexBoxBorder.Default)
+    {
+
+    }
+
+    public TextBox(string text, int textWidth, int padding, FlexBoxBorder borderStyle)
+        :this (text, textWidth, new Padding(padding), borderStyle)
+    {
+
+    }
+
+    public TextBox(string text, int textWidth, Padding padding, FlexBoxBorder borderStyle)
         : base ()
     {
         sourceText = text;
         Padding = padding;
+        BorderStyle = borderStyle;
+
         this.textWidth = textWidth;
 
         sources = new List<StringFlexBox>() { this };
@@ -102,7 +117,7 @@ public class TextBox : StringFlexBox
         // subtract already added text on left side padding.
         var lineFill = Math.Max(width - (texts[lineIndex].Count() + Padding.GetSide(Padding.Side.Left)), 0); 
 
-        var result = StringHelpers.Fill(lineFill) + flexBoxBorder.RightBorder;
+        var result = StringHelpers.Fill(lineFill) + BorderStyle.RightBorder;
         builder.Append(result);
     }
 
@@ -115,9 +130,9 @@ public class TextBox : StringFlexBox
         for (int i = 0; i < convertedPadding; i++)
         {
             var paddingString =
-                $"{flexBoxBorder.LeftBorder}" +
+                $"{BorderStyle.LeftBorder}" +
                 $"{StringHelpers.Fill(width)}" +
-                $"{flexBoxBorder.RightBorder}";
+                $"{BorderStyle.RightBorder}";
             
             content.Add(paddingString);
             builder.AppendLine(paddingString);

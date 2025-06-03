@@ -51,6 +51,7 @@ public class FlexBoxBorder
 
 
     public static FlexBoxBorder Default => new FlexBoxBorder(new char[] { '│', '│', '─', '─' }, new char[] { '┌', '┐', '└', '┘' });
+    public static FlexBoxBorder None => new FlexBoxBorder(new char[] { ' ', ' ', ' ', ' ' }, new char[] { ' ', ' ', ' ', ' ' });
 
 }
 

@@ -27,7 +27,7 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
 {
     public List<StringFlexBox> Sources => sources;
     public Padding Padding = new Padding();
-    public FlexBoxBorder flexBoxBorder = FlexBoxBorder.Default;
+    public FlexBoxBorder BorderStyle = FlexBoxBorder.Default;
 
     protected List<StringFlexBox> sources;
     
@@ -58,18 +58,22 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
         sources = new List<StringFlexBox>();
     }
 
-    public StringFlexBox(List<StringFlexBox> sources, Padding padding)
+    public StringFlexBox(List<StringFlexBox> sources, Padding padding, FlexBoxBorder borderStyle)
     {
-
         this.sources = sources;
         Padding = padding;
+        BorderStyle = borderStyle;
 
         widestSource = sources.OrderByDescending(x => x.Width).First();
         tallestSource = sources.OrderByDescending(x => x.Height).First();
     }
 
     public StringFlexBox(List<StringFlexBox> sources, int padding)
-        : this(sources, new Padding(padding))
+        : this(sources, new Padding(padding), FlexBoxBorder.Default)
+    { }
+
+    public StringFlexBox(List<StringFlexBox> sources, Padding padding)
+    : this(sources, padding, FlexBoxBorder.Default)
     { }
 
     protected virtual string BuildTextBox()
@@ -144,7 +148,7 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
     protected virtual void AppendLeftPadding(StringBuilder builder)
     {
         // -2 is to offset for the vertical borders being added. Why 2???
-        builder.Append(flexBoxBorder.LeftBorder + Padding.PaddingString(Padding.Side.Left));
+        builder.Append(BorderStyle.LeftBorder + Padding.PaddingString(Padding.Side.Left));
     }
 
     protected virtual void AppendRightPadding(StringBuilder builder, int sourceIndex)
@@ -152,19 +156,19 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
         // how much padding should be added 
         var widthOffset = Math.Max(widestSource.BoxWidth() - sources[sourceIndex].BoxWidth(), 0);
         // -2 is to offset for the vertical borders being added. Why 2???
-        builder.Append(Padding.PaddingString(Padding.Side.Right) + StringHelpers.Fill(widthOffset) + flexBoxBorder.RightBorder );
+        builder.Append(Padding.PaddingString(Padding.Side.Right) + StringHelpers.Fill(widthOffset) + BorderStyle.RightBorder );
 
     }
 
     protected virtual string TopLine() =>
-        $"{flexBoxBorder.TopLeftCorner}" +
-        $"{new string(flexBoxBorder.TopBorder, BoxWidth())}" +
-        $"{flexBoxBorder.TopRightCorner}";
+        $"{BorderStyle.TopLeftCorner}" +
+        $"{new string(BorderStyle.TopBorder, BoxWidth())}" +
+        $"{BorderStyle.TopRightCorner}";
 
     protected virtual string BottomLine() =>
-        $"{flexBoxBorder.BottomLeftCorner}" +
-        $"{new string(flexBoxBorder.BottomBorder, BoxWidth())}" +
-        $"{flexBoxBorder.BottomRightCorner}";
+        $"{BorderStyle.BottomLeftCorner}" +
+        $"{new string(BorderStyle.BottomBorder, BoxWidth())}" +
+        $"{BorderStyle.BottomRightCorner}";
 
     protected virtual void BuildTexts()
     {
@@ -238,9 +242,9 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
         for (int i = 0; i < convertedPadding; i++)
         {
             var paddingString =
-                $"{flexBoxBorder.LeftBorder}" +
+                $"{BorderStyle.LeftBorder}" +
                 $"{StringHelpers.Fill(BoxWidth())}" +
-                $"{flexBoxBorder.RightBorder}";
+                $"{BorderStyle.RightBorder}";
             
 
             content.Add(paddingString);
@@ -266,4 +270,8 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
 
         return sum;
     }
+
+    public override string ToString() =>
+        this.FormattedText;
+    
 }

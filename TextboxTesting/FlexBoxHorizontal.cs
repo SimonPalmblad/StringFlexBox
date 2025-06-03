@@ -10,23 +10,32 @@ public interface IFormattableBox
     int BoxHeight();
 }
 
-public class BoxHorizontal: StringFlexBox, IFormattableBox
+public class FlexBoxHorizontal: StringFlexBox, IFormattableBox
 {
     private int centerPaddingTotal = 0;
 
-    public BoxHorizontal(List<StringFlexBox> box, Padding padding)
-        :base(box, padding)
+    public FlexBoxHorizontal(List<StringFlexBox> box, Padding padding, FlexBoxBorder borderStyle)
+        :base(box, padding, borderStyle)
     {
         SetCenterPadding();
         BuildTexts();
     }
 
-    public BoxHorizontal(List<StringFlexBox> box, int padding)
-    : base(box, padding)
+    public FlexBoxHorizontal(List<StringFlexBox> box, int padding, FlexBoxBorder borderStyle)
+        : this(box, new Padding(padding), borderStyle)
     {
-        SetCenterPadding();
-        BuildTexts();
     }
+
+    public FlexBoxHorizontal(List<StringFlexBox> box, Padding padding)
+        : this(box, padding, FlexBoxBorder.Default)
+    {
+    }
+
+    public FlexBoxHorizontal(List<StringFlexBox> box, int padding)
+    : this(box, new Padding(padding), FlexBoxBorder.Default)
+    {
+    }
+
 
     protected override void AppendTopOfBox(StringBuilder builder)
     {
@@ -86,7 +95,7 @@ public class BoxHorizontal: StringFlexBox, IFormattableBox
 
     protected override void AppendRightPadding(StringBuilder builder, int sourceIndex = 0)
     {
-        builder.Append(Padding.PaddingString(Padding.Side.Right) + flexBoxBorder.RightBorder);
+        builder.Append(Padding.PaddingString(Padding.Side.Right) + BorderStyle.RightBorder);
     }
 
 

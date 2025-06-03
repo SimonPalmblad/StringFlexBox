@@ -13,12 +13,22 @@ public class Padding
 
     public Padding()
     {
-        SetAllPadding( 0);
+        SetAllPadding(0);
     }
 
     public Padding(int paddingAmount)
     {
         SetAllPadding(paddingAmount);
+    }
+
+    public Padding(int horizontalPadding, int verticalPadding, int centerPadding)
+    {
+        SetPaddingLeft(horizontalPadding);
+        SetPaddingRight(horizontalPadding);
+        SetPaddingTop(verticalPadding);
+        SetPaddingBottom(verticalPadding);
+        SetPaddingCenter(centerPadding);
+
     }
 
     public Padding(int left, int right, int top, int bottom, int center)
@@ -65,7 +75,7 @@ public class Padding
         paddingValues.SetValue((int)side, amount);
 
     public void SetPadding(int index, int amount) =>
-        paddingValues.SetValue(index, amount);
+        paddingValues.SetValue(amount, index);
 
     public string PaddingString(Side side, int additionalPadding = 0) =>
         paddingValues[(int)side] + additionalPadding > 0
