@@ -71,7 +71,6 @@ using System.Threading.Tasks;
                         else 
                         { 
                             result.Append(split.Trim());
-      
                         }
                     }
 

@@ -3,28 +3,28 @@
   "WorkspaceRootPath": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxTesting.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\textbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxTesting.csproj|solutionrelative:textbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\stringflexbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:stringflexbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\boxhorizontal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:boxhorizontal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\boxvertical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:boxvertical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\flexboxborder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:flexboxborder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\borderbuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:borderbuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\stringflexbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:stringflexbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxTesting.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxTesting.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxTesting.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\textbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxTesting.csproj|solutionrelative:textbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\helperclasses\\printboxdebug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\extensions\\stringextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:extensions\\stringextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\boxvertical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:boxvertical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,24 +42,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BorderBuilder.cs",
-              "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\BorderBuilder.cs",
-              "RelativeDocumentMoniker": "BorderBuilder.cs",
-              "ToolTip": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\BorderBuilder.cs",
-              "RelativeToolTip": "BorderBuilder.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "StringFlexBox.cs",
+              "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\StringFlexBox.cs",
+              "RelativeDocumentMoniker": "StringFlexBox.cs",
+              "ToolTip": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\StringFlexBox.cs",
+              "RelativeToolTip": "StringFlexBox.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAADwAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-29T18:08:08.644Z",
+              "WhenOpened": "2025-05-29T18:29:48.344Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "FlexBoxBorder.cs",
               "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\FlexBoxBorder.cs",
               "RelativeDocumentMoniker": "FlexBoxBorder.cs",
@@ -89,7 +85,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -115,7 +111,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 1,
               "Title": "BoxVertical.cs",
               "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\BoxVertical.cs",
               "RelativeDocumentMoniker": "BoxVertical.cs",
@@ -128,7 +124,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "BoxHorizontal.cs",
               "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\BoxHorizontal.cs",
               "RelativeDocumentMoniker": "BoxHorizontal.cs",
@@ -141,7 +137,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "TextBox.cs",
               "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\TextBox.cs",
               "RelativeDocumentMoniker": "TextBox.cs",
@@ -150,25 +146,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-23T15:29:20.078Z",
-              "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "StringFlexBox.cs",
-              "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\StringFlexBox.cs",
-              "RelativeDocumentMoniker": "StringFlexBox.cs",
-              "ToolTip": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\StringFlexBox.cs",
-              "RelativeToolTip": "StringFlexBox.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAjwDMAAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-23T15:29:06.402Z",
               "EditorCaption": ""
             }
           ]

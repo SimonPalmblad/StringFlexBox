@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\boxhorizontal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:boxhorizontal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\flexboxbuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:flexboxbuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\boxvertical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:boxvertical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\flexboxborder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,20 +19,20 @@
       "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:stringflexbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxTesting.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxTesting.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\boxhorizontal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:boxhorizontal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxTesting.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\textbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxTesting.csproj|solutionrelative:textbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\boxvertical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:boxvertical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\helperclasses\\printboxdebug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:helperclasses\\printboxdebug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\extensions\\stringextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:extensions\\stringextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|s:\\programming projects\\textboxrebuild\\textboxtesting\\textbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCB3650C-85FD-4F0D-8700-43ABD57BA920}|TextboxRebuild.csproj|solutionrelative:textbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,8 +42,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FlexBoxBuilder.cs",
+              "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\FlexBoxBuilder.cs",
+              "RelativeDocumentMoniker": "FlexBoxBuilder.cs",
+              "ToolTip": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\FlexBoxBuilder.cs",
+              "RelativeToolTip": "FlexBoxBuilder.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T18:40:00.046Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
@@ -52,7 +65,7 @@
               "RelativeDocumentMoniker": "StringFlexBox.cs",
               "ToolTip": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\StringFlexBox.cs",
               "RelativeToolTip": "StringFlexBox.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAADwAAABGAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-29T18:29:48.344Z",
               "EditorCaption": ""
@@ -65,33 +78,20 @@
               "RelativeDocumentMoniker": "FlexBoxBorder.cs",
               "ToolTip": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\FlexBoxBorder.cs",
               "RelativeToolTip": "FlexBoxBorder.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACkAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-29T18:00:49.596Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "StringExtensions.cs",
-              "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\Extensions\\StringExtensions.cs",
-              "RelativeDocumentMoniker": "Extensions\\StringExtensions.cs",
-              "ToolTip": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\Extensions\\StringExtensions.cs",
-              "RelativeToolTip": "Extensions\\StringExtensions.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAADEAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-29T17:25:33.218Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-23T17:16:21.808Z",
               "EditorCaption": ""
@@ -106,12 +106,11 @@
               "RelativeToolTip": "HelperClasses\\PrintBoxDebug.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-29T17:48:09.161Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-29T17:48:09.161Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "BoxVertical.cs",
               "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\BoxVertical.cs",
               "RelativeDocumentMoniker": "BoxVertical.cs",
@@ -119,25 +118,24 @@
               "RelativeToolTip": "BoxVertical.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-26T13:53:42.961Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-26T13:53:42.961Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "BoxHorizontal.cs",
               "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\BoxHorizontal.cs",
               "RelativeDocumentMoniker": "BoxHorizontal.cs",
               "ToolTip": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\BoxHorizontal.cs",
               "RelativeToolTip": "BoxHorizontal.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAjwFcAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFcAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-23T23:30:22.47Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "TextBox.cs",
               "DocumentMoniker": "S:\\Programming projects\\TextBoxRebuild\\TextboxTesting\\TextBox.cs",
               "RelativeDocumentMoniker": "TextBox.cs",
@@ -145,8 +143,7 @@
               "RelativeToolTip": "TextBox.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-23T15:29:20.078Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-23T15:29:20.078Z"
             }
           ]
         }
