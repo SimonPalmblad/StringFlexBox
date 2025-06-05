@@ -14,22 +14,40 @@ using System.Threading.Tasks;
 
         public static string RemoveNewLineEndings(this string value) => value.Replace(Environment.NewLine, string.Empty);
 
-        public static string MaxLength(this string value, int maxLength) => value.Substring(0, Math.Min(value.Length, maxLength));    
+        public static string MaxLength(this string value, int maxLength) => value.Substring(0, Math.Min(value.Length, maxLength));
 
+        /// <summary>
+        /// Wraps a string to a given maximum character length, removing any previous formatting. Creates a new line before every any word that would exceed the maximum line length.
+        /// </summary>
+        /// <param name="source">The string to format.</param>
+        /// <param name="maxParagraphLength">Maximum number of characters allowed per line.</param>
+        /// <returns>The resulting wrapped string.</returns>
         public static string WordWrap(this string source, int maxParagraphLength)
         {
+            source = RemoveFormatting(source);
             StringBuilder formattedText = SplitIntoParagraphs(source, maxParagraphLength , Wrap.Normal, out var unused);
 
             return formattedText.ToString();
         }
 
+
+
+        /// <summary>
+        /// Wraps a string to a given maximum character length, removing any previous formatting. Creates a new line before every any word that would exceed the maximum line length.
+        /// </summary>
+        /// <param name="source">The string to format.</param>
+        /// <param name="maxParagraphLength">Maximum number of characters allowed per line.</param>
+        /// <param name="formatAsList">The wrapped string as a list divided into paragraphs.</param>
+        /// <returns>The resulting wrapped string.</returns>
         public static string WordWrapWithList(this string source, int maxParagraphLength, out List<string> formatAsList)
-        {
-            StringBuilder formattedText = SplitIntoParagraphs(source, maxParagraphLength, Wrap.Normal, out var textAsList);
+            {
+                formatAsList = new List<string>();
+                source = RemoveFormatting(source);
+                StringBuilder formattedText = SplitIntoParagraphs(source, maxParagraphLength, Wrap.Normal, out var textAsList);
         
-            formatAsList = textAsList;
-            return formattedText.ToString();
-        }
+                formatAsList = textAsList;
+                return formattedText.ToString();
+            }
 
         /// <summary>
         /// Returns a string with maximum line length equal to MaxParagraphLength, wrapping at full words if possible. Provide a string formatting to be applied to each line with an optional empty formatted line at end.
@@ -131,5 +149,11 @@ using System.Threading.Tasks;
 
 
         }
-    }
+
+        private static string RemoveFormatting(string source) =>        
+            source.Replace(Environment.NewLine, string.Empty)
+                  .Replace("\n", string.Empty)
+                  .Replace("\t", string.Empty)
+                  .Replace("\b", string.Empty);        
+}
 

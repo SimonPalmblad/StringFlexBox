@@ -11,8 +11,15 @@ namespace TextboxRebuild.HelperClasses
         public static void PrintWithDimensions(StringFlexBox box)
         {
             Console.WriteLine(box.FormattedText);
-            Console.WriteLine($"Width of {box}: {box.Width} ");
-            Console.WriteLine($"Height of {box}: {box.Height} ");
+            Console.WriteLine($"Width: {box.Width} ");
+            
+            if( box is TextBox)
+            {
+                var textBox = box as TextBox;
+                Console.WriteLine($"Text Width: {textBox?.TextWidth} ");
+            }
+
+            Console.WriteLine($"Height: {box.Height} ");
         }
     }
 }

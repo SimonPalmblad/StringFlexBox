@@ -105,7 +105,7 @@ public class FlexBoxHorizontal: StringFlexBox, IFormattableBox
             + paddingWidthOffset
             + centerPaddingTotal;
     
-    protected override int VerticalPaddingWidth => width;
+    protected override int VerticalPaddingAmount => width;
 
     private void SetCenterPadding()
     {

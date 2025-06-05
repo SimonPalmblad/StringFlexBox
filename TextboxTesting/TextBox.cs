@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Text;
 
 public class TextBox : StringFlexBox
 {
@@ -7,25 +6,23 @@ public class TextBox : StringFlexBox
     private string sourceText;
     private int textWidth;
 
-
     public override string FormattedText
     {
         get
         {
             if (isDirty)
             {
-                BuildTexts ();
+                BuildTexts();
             }
 
             return formattedText;
-        }   
+        }
     }
 
     public override string TextWithoutEscapeChars
     {
         get
         {
-
             if (isDirty)
             {
                 BuildTexts();
@@ -38,7 +35,7 @@ public class TextBox : StringFlexBox
         new TextBox(string.Empty, 0, new Padding(0), FlexBoxBorder.Default);
 
     public TextBox(string text, int textWidth, int padding)
-        : this (text, textWidth, new Padding(padding), FlexBoxBorder.Default)
+        : this(text, textWidth, new Padding(padding), FlexBoxBorder.Default)
     {
 
     }
@@ -50,31 +47,47 @@ public class TextBox : StringFlexBox
     }
 
     public TextBox(string text, int textWidth, int padding, FlexBoxBorder borderStyle)
-        :this (text, textWidth, new Padding(padding), borderStyle)
+        : this(text, textWidth, new Padding(padding), borderStyle)
     {
 
     }
 
     public TextBox(string text, int textWidth, Padding padding, FlexBoxBorder borderStyle)
-        : base ()
     {
+        InitializeTextBox(text, textWidth, padding, borderStyle);
+    }
+
+    private void InitializeTextBox(string text, int textWidth, Padding padding, FlexBoxBorder borderStyle, int wrapAllowance = 0)
+    {
+        content.Clear();
+        
         sourceText = text;
         Padding = padding;
         BorderStyle = borderStyle;
-
         this.textWidth = textWidth;
 
         sources = new List<StringFlexBox>() { this };
 
         StringBuilder builder = new StringBuilder();
-        text = text.WordWrapWithList(textWidth, out var formatAsList);
+        // create a new word-wrapped string with an allowance for adding characters later on, formatted in a list of paragraphs
+        text = text.WordWrapWithList(textWidth - wrapAllowance, out var formatAsList);
         texts = formatAsList;
 
         int lines = (text.Length / SetBoxWidth(BoxWidth()));
         BuildTexts();
-        
+
         height = content.Count;
     }
+
+    protected override string TopLine() =>
+    $"{BorderStyle.TopLeftCorner}" +
+    $"{new string(BorderStyle.TopBorder, VerticalPaddingAmount)}" +
+    $"{BorderStyle.TopRightCorner}";
+
+    protected override string BottomLine() =>
+        $"{BorderStyle.BottomLeftCorner}" +
+        $"{new string(BorderStyle.BottomBorder, VerticalPaddingAmount)}" +
+        $"{BorderStyle.BottomRightCorner}";
 
     protected override void AppendTopOfBox(StringBuilder builder)
     {
@@ -91,7 +104,6 @@ public class TextBox : StringFlexBox
 
     protected override void AppendContent(StringBuilder builder)
     {
-
         for (int i = 0; i < texts.Count(); i++)
         {
             var newLineRemoved = texts[i].Replace(Environment.NewLine, string.Empty);
@@ -99,23 +111,18 @@ public class TextBox : StringFlexBox
             StringBuilder result = new StringBuilder();
             AppendLeftPadding(result);
             result.Append(newLineRemoved);
-            AppendTextLineEnd(result, i, SetBoxWidth(BoxWidth()));
+            AppendTextLineEnd(result, i, SetBoxWidth(VerticalPaddingAmount));
             content.Add(result.ToString());
 
             builder.Append(result)
-                   .AppendLine();            
+                   .AppendLine();
         }
-        
-        #region Bottom line padding
-   
-        #endregion
-
     }
 
     protected void AppendTextLineEnd(StringBuilder builder, int lineIndex, int width)
     {
         // subtract already added text on left side padding.
-        var lineFill = Math.Max(width - (texts[lineIndex].Count() + Padding.GetSide(Padding.Side.Left)), 0); 
+        var lineFill = Math.Max(width - (texts[lineIndex].Count() + Padding.GetSide(Padding.Side.Left)), 0);
 
         var result = StringHelpers.Fill(lineFill) + BorderStyle.RightBorder;
         builder.Append(result);
@@ -124,7 +131,7 @@ public class TextBox : StringFlexBox
     protected override string VerticalPadding(Padding.Side padding)
     {
         StringBuilder builder = new StringBuilder();
-        var width = VerticalPaddingWidth;
+        var width = VerticalPaddingAmount;
         var convertedPadding = VerticalPaddingConversion(Padding.GetSide(padding));
 
         for (int i = 0; i < convertedPadding; i++)
@@ -133,7 +140,7 @@ public class TextBox : StringFlexBox
                 $"{BorderStyle.LeftBorder}" +
                 $"{StringHelpers.Fill(width)}" +
                 $"{BorderStyle.RightBorder}";
-            
+
             content.Add(paddingString);
             builder.AppendLine(paddingString);
         }
@@ -147,11 +154,24 @@ public class TextBox : StringFlexBox
     public override int BoxHeight() =>
         content.Count();
 
-    protected override int VerticalPaddingWidth => textWidth + HorizontalPadding();
+    public int TextWidth => textWidth;
+
+    protected override int VerticalPaddingAmount => textWidth + HorizontalPadding();
 
 
     public static int SetBoxWidth(int _width) => Math.Max(minWidth, _width);
-    public TextBox Resize(int _width) => new TextBox(this.sourceText, _width, Padding);
+
+    public void Resize(int newWidth, int wrapAllowance  = 0)
+    {
+        string newSourceText = string.Empty;
+
+        for (int i = 0; i < texts.Count; i++)
+        {
+            newSourceText += texts[i].ToString() + " "; //adding back a space that was removed in the word wrapping
+        }
+
+        InitializeTextBox(newSourceText, newWidth, Padding, BorderStyle, wrapAllowance);
+    }
 
     /// <summary>
     /// Attemps to get text at the specified <paramref name="line"/>, if valid.

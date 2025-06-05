@@ -15,7 +15,7 @@ public interface IFlexableTextContainer
     public List<string> Texts();
 
     public string ContentAtLine(int line);
-    public string StringAtLine(int line);
+    public string TextAtLine(int line);
     
     public void AddLinePrefix(string prefix);
     public void AddLineSuffix(string prefix);
@@ -51,7 +51,7 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
     protected List<string> texts = new List<string>();
     protected List<string> content = new List<string>();
 
-    protected bool isDirty;
+    protected bool isDirty = true;
 
     public StringFlexBox()
     {
@@ -76,12 +76,34 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
     : this(sources, padding, FlexBoxBorder.Default)
     { }
 
-    protected virtual string BuildTextBox()
+
+    /// <returns>The number of rows this object contains.</returns>
+    public virtual int Rows()
     {
+        int sum = 0;
+
+        for (int i = 0; i < Sources.Count; i++)
+        {
+            sum += Sources[i].Content().Count;
+        }
+
+        return sum;
+    }
+
+    /// <summary>
+    /// Complies the object into a text box.
+    /// </summary>
+    /// <returns>The formatted box.</returns>
+    protected virtual string BuildTextBox(int _paddingWidthOffset = 2)
+    {                                                                                
         StringBuilder builder = new StringBuilder();
 
+        // ⚠ MIGHT BREAK EVERYTHING ELSE. FIX FOR TEXTBOX RESIZING ⚠  
+        content.Clear();
+        // ⚠ MIGHT BREAK EVERYTHING ELSE. FIX FOR TEXTBOX RESIZING ⚠  
+
         #region Top Line logic
-            builder.Append(TopLine()).AppendLine();
+        builder.Append(TopLine()).AppendLine();
             content.Add(TopLine());
         #endregion
 
@@ -97,12 +119,17 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
             content.Add(BottomLine());
         #endregion
 
-        paddingWidthOffset = 2;
+        paddingWidthOffset = _paddingWidthOffset;
 
         isDirty = false;
         return builder.ToString();
     }
 
+
+    /// <summary>
+    /// Logic for adding the formatting at the top of this box.
+    /// </summary>
+    /// <param name="builder">The builder to append to.</param>
     protected virtual void AppendTopOfBox(StringBuilder builder)
     {
         #region Top line padding
@@ -112,6 +139,10 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
         #endregion
     }
 
+    /// <summary>
+    /// The center content of this object before padding and borders are applied. Override to change how this logic is performed.
+    /// </summary>
+    /// <param name="builder">StringBuilder to append content to.</param>
     protected virtual void AppendContent(StringBuilder builder)
     {        
         for (int s = 0; s < Sources.Count(); s++)
@@ -126,7 +157,7 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
                 AppendRightPadding(result, s);
                
                 content.Add(result.ToString());
-                texts.Add(Sources[s].StringAtLine(i));
+                texts.Add(Sources[s].TextAtLine(i));
                 
                 result.AppendLine();
 
@@ -136,6 +167,10 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
         }
     }
 
+    /// <summary>
+    /// Logic for adding the formatting at the bottom of this box.
+    /// </summary>
+    /// <param name="builder">The builder to append to.</param>
     protected virtual void AppendBottomOfBox(StringBuilder builder)
     {
         #region Bottom line padding
@@ -170,9 +205,9 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
         $"{new string(BorderStyle.BottomBorder, BoxWidth())}" +
         $"{BorderStyle.BottomRightCorner}";
 
-    protected virtual void BuildTexts()
+    protected virtual void BuildTexts(int paddingWidthOffset = 2)
     {
-        formattedText = BuildTextBox();
+        formattedText = BuildTextBox(paddingWidthOffset);
         textWithoutEscapeChars = BuildTextWithoutEscapeChars();
     }
 
@@ -201,39 +236,146 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
     #endregion
 
     #region Textboxable Implementation
+    /// <summary>
+    /// Full content including borders and padding.
+    /// </summary>
+    /// <returns>A list representing the content.</returns>
     public List<string> Content() => content;
 
+    /// <summary>
+    /// The content without padding and borders.
+    /// </summary>
+    /// <returns>A list represting the formatted text.</returns>
     public List<string> Texts() => texts;
 
+    /// <summary>
+    /// Full content at the given line index.
+    /// </summary>
+    /// <param name="line">Line index to return.</param>
+    /// <returns>The content at given line, if there is any. Otherwise string.Empty.</returns>
     public string ContentAtLine(int line) =>
           line < content.Count ? content[line]
                                : string.Empty;
 
-    public string StringAtLine(int line) =>
+    /// <summary>
+    /// The content without padding and borders at the given index.
+    /// </summary>
+    /// <param name="line">Line index to return.</param>
+    /// <returns>The content at given line, if there is any. Otherwise string.Empty.</returns>
+    public string TextAtLine(int line) =>
         line < texts.Count ? texts[line]
                            : string.Empty;
 
     public void AddToTexts(string text) => texts.Add(text);
 
-    public void AddLinePrefix(string prefix)
+    private void AddContentToText(string content, Action<TextBox, string> contentAction)
     {
-        isDirty = true;
-        for (int i = 0; i < texts.Count; i++)
+        var length = content.Length;
+
+        // Only perform content action if sources are textboxes.
+        foreach (StringFlexBox item in sources)
         {
-            texts[i] = prefix + texts[i];
+            if (item is not TextBox)
+                continue;
+            
+            var textBox = item as TextBox;
+            
+            if(textBox.TextWidth < length)
+            {
+                continue;
+            }
+
+            contentAction(textBox, content);         
         }
+
+        isDirty = true;
+
+    }
+    
+    private void AddContentAtLine(string content, int line, Action<TextBox, string, int> contentAction)
+    {
+        var length = content.Length;
+
+        // Only perform content action if sources are textboxes.
+        foreach (StringFlexBox item in sources)
+        {
+            if (item is not TextBox)
+                continue;
+
+            var textBox = item as TextBox;
+
+            if (textBox.TextWidth < length  || textBox.GetTextAtLine(line) == string.Empty)
+            {
+                continue;
+            }
+
+            contentAction(textBox, content, line);
+        }
+
+        isDirty = true;
+
     }
 
+
+    /// <summary>
+    /// Adds a string before all lines inside this object's text.
+    /// </summary>
+    /// <param name="prefix">The prefixed string.</param>
+    public void AddLinePrefix(string text)
+    {
+        AddContentToText(text, AddLinePrefixAction);
+    }
+
+    public void AddPrefixAtLine(string text, int line)
+    {
+        AddContentAtLine(text, line, AddPrefixAtLineAction);
+    }
+
+    // WARNING - Looping this keeps increasing the size. Safe-guard against resizing if text is already same size.
+    private void AddPrefixAtLineAction(TextBox target, string text, int line)
+    {
+        target.Resize(target.TextWidth + text.Length, text.Length);
+
+        var textAtLine = target.TextAtLine(line);
+        textAtLine = text + textAtLine;
+
+        target.texts[line] = textAtLine;
+    }
+
+    private void AddLinePrefixAction(TextBox target, string text)
+    {
+        target.Resize(target.TextWidth + text.Length, text.Length);
+        
+        for (int i = 0; i < target.texts.Count; i++)
+        {
+            target.texts[i] = text + target.texts[i];
+        }
+
+    }
+    
+
+    /// <summary>
+    /// Adds a string at the end of all lines inside this object's text.
+    /// </summary>
+    /// <param name="suffix">The suffix string.</param>
     public void AddLineSuffix(string suffix)
     {
-        isDirty = true;
-        for (int i = 0; i < texts.Count; i++)
-        {
-            texts[i] = texts[i] + suffix;
-        }
+        AddContentToText(suffix, AddLineSuffixAction);
     }
+    
+    private void AddLineSuffixAction(TextBox target, string suffix)
+    {
+        target.Resize(target.TextWidth + suffix.Length, suffix.Length);
+        
+        for (int i = 0; i < target.texts.Count; i++)
+        {
+            target.texts[i] = target.texts[i] + suffix;
+        }
+
+    }
+
     #endregion
-   
+
     protected virtual string VerticalPadding(Padding.Side paddingSide)
     {
         StringBuilder builder = new StringBuilder();
@@ -255,21 +397,10 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
     }
     protected virtual int HorizontalPadding() => Padding.GetSide(Padding.Side.Left) + Padding.GetSide(Padding.Side.Right);
 
-    protected virtual int VerticalPaddingWidth => Width + HorizontalPadding();
+    protected virtual int VerticalPaddingAmount => Width + HorizontalPadding();
 
     protected virtual int VerticalPaddingConversion(int paddingAmount) => paddingAmount / 2;
 
-    public virtual int Rows()
-    {
-        int sum = 0;
-
-        for (int i = 0; i < Sources.Count; i++)
-        {
-            sum += Sources[i].Content().Count;
-        }
-
-        return sum;
-    }
 
     public override string ToString() =>
         this.FormattedText;
