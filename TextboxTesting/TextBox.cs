@@ -64,6 +64,17 @@ public class TextBox : StringFlexBox
         sourceText = text;
         Padding = padding;
         BorderStyle = borderStyle;
+
+        if (this.textWidth != 0)
+        {
+            previousTextSize = this.textWidth;
+        }
+
+        else
+        {
+            previousTextSize = textWidth;
+        }
+
         this.textWidth = textWidth;
 
         sources = new List<StringFlexBox>() { this };
@@ -163,6 +174,9 @@ public class TextBox : StringFlexBox
 
     public void Resize(int newWidth, int wrapAllowance  = 0)
     {
+        if(newWidth == textWidth)
+            return;
+
         string newSourceText = string.Empty;
 
         for (int i = 0; i < texts.Count; i++)
@@ -171,6 +185,99 @@ public class TextBox : StringFlexBox
         }
 
         InitializeTextBox(newSourceText, newWidth, Padding, BorderStyle, wrapAllowance);
+    }
+
+    private void AddContentToText(string content, Action<string> contentAction)
+    {
+        var length = content.Length;
+
+        if (TextWidth < length)
+        {
+            return;
+        }
+
+        Resize(previousTextSize + content.Length, content.Length);
+        contentAction(content);
+        
+        isDirty = true;
+
+    }
+
+    private void AddContentAtLine(string content, int line, Action<string, int> contentAction)
+    {
+        var length = content.Length;
+
+        // Only perform content action if sources are textboxes.
+        foreach (StringFlexBox item in sources)
+        {
+           
+            if (previousTextSize < length || GetTextAtLine(line) == string.Empty)
+            {
+                continue;
+            }
+
+            Resize(previousTextSize + content.Length, content.Length);
+
+            contentAction(content, line);
+        }
+
+        isDirty = true;
+
+    }
+
+
+    /// <summary>
+    /// Adds a string before all lines inside this object's text.
+    /// </summary>
+    /// <param name="prefix">The prefixed string.</param>
+    public void AddLinePrefix(string text)
+    {
+        AddContentToText(text, AddLinePrefixAction);
+    }
+
+    public void AddPrefixAtLine(string text, int line)
+    {
+        AddContentAtLine(text, line, AddPrefixAtLineAction);
+    }
+
+    // WARNING - Looping this keeps increasing the size. Safe-guard against resizing if text is already same size.
+    private void AddPrefixAtLineAction(string text, int line)
+    {
+        var textAtLine = TextAtLine(line);
+        textAtLine = text + textAtLine;
+
+        texts[line] = textAtLine;
+    }
+
+    private void AddLinePrefixAction(string text)
+    {
+        Resize(TextWidth + text.Length, text.Length);
+
+        for (int i = 0; i < texts.Count; i++)
+        {
+            texts[i] = text + texts[i];
+        }
+
+    }
+
+
+    /// <summary>
+    /// Adds a string at the end of all lines inside this object's text.
+    /// </summary>
+    /// <param name="suffix">The suffix string.</param>
+    public void AddLineSuffix(string suffix)
+    {
+        AddContentToText(suffix, AddLineSuffixAction);
+    }
+
+    private void AddLineSuffixAction(string suffix)
+    {
+        Resize(TextWidth + suffix.Length, suffix.Length);
+
+        for (int i = 0; i < texts.Count; i++)
+        {
+            texts[i] = texts[i] + suffix;
+        }
     }
 
     /// <summary>

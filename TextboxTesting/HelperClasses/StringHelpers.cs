@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -16,6 +17,9 @@ public static class StringHelpers
 
     public static string Fill(int amount) =>
         new string(' ', amount);
+
+    private string AddSpacesToCamelCase(this string text) =>
+       Regex.Replace(text, @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))", " $0");
 
 }
 
