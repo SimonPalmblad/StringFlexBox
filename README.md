@@ -1,17 +1,20 @@
 # Flexible textboxes for strings
-This library is used to create strings formatted inside of textboxes. Any string input inside a flexible textbox will be automatically word-wrapped to fit the supplied size of the textbox.
+A library used for creating dynamic textboxes used to formatting strings in the console. Inspired by the CSS FlexBox layout model. 
+- Automatic word-wrapping functionality.
+- Customizable via size, padding and border style.
+- Nested textboxes in row or column format.
+- Can be resized after creation.
 
+## Demo and usage
+Below is a demonstration of use-cases for the String Flexbox library. It's meant both as a show-case and a tutorial for using the various functions available inside.
+1. [Creating TextBoxes](#1.-creating-textboxes)
+2. [Aligning TextBoxes relative to each other](#2.-a-box-within-a-box-within...)
+3. [Custom Borders](3.-customize-the-borders)
+4. [Custom Padding](4.-customizable-padding-options)
 
->[!WARNING]
+>[!IMPORTANT]
 >Using pre-formatted text in the strings for this library is not currently supported.  
 >For example, line breaks directly in the text will break box formatting as they are not supported by the word wrapping methods.
-
-## Demos
-Below is a demonstration of use-cases for the String Flexbox library. It's meant both as a show-case and a tutorial for using the various functions available inside.
-1. [Creating TextBoxes](#1-creating-textboxes)
-2. [Aligning TextBoxes relative to each other](#2-a-box-within-a-box-within...)
-3. [Custom Borders](3-customize-the-borders)
-4. [Custom Padding](4-customizable-padding-options)
 
 </br></br>
 ## 1. Creating TextBoxes
