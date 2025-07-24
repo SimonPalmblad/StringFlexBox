@@ -5,8 +5,8 @@
 //#define printBorderlessDemo
 //#define printCustomPaddingDemo
 
-#define printAddingContentDemo
-//#define printResizingDemo
+//#define printAddingContentDemo
+#define printResizingDemo
 
 using TextboxRebuild.HelperClasses;
 
@@ -24,10 +24,20 @@ TextBox textbox5 = new(textShort3, 30, 5);
 
 #region WIP - Resizing
 #if printResizingDemo
-    textbox3.Resize(25);
-    textbox3.Resize(27);
 
-PrintBoxDebug.PrintWithDimensions(textbox3);
+Console.WriteLine(textbox3);
+int resize1 = 25;
+textbox3.Resize(resize1);
+
+Console.WriteLine($"Resized to: {resize1}");
+Console.WriteLine(textbox3);
+
+int resize2 = 27;
+Console.WriteLine($"Resized to: {resize2}");
+textbox3.Resize(resize2);
+
+Console.WriteLine(textbox3);
+
 #endif
 #endregion
 
@@ -49,13 +59,14 @@ PrintBoxDebug.PrintWithDimensions(textbox3);
     
     PrintBoxDebug.PrintWithDimensions(textbox5);
 
-    Console.WriteLine(textbox1.Texts().Count);
-    for (int i = 0; i < textbox1.Texts().Count; i++)
-    {
-        textbox1.AddPrefixAtLine((i + 1).ToString() + ". ", i);
-    }
+    //Console.WriteLine(textbox1.Texts().Count);
+    
+//for (int i = 0; i < textbox1.Texts().Count; i++)
+//    {
+//        textbox1.AddPrefixAtLine((i + 1).ToString() + ". ", i);
+//    }
 
-    PrintBoxDebug.PrintWithDimensions(textbox1);
+    //PrintBoxDebug.PrintWithDimensions(textbox1);
 
 //FlexBoxHorizontal horizontalBoxes = new(new List<StringFlexBox> { textbox2, textbox3 }, new Padding(5));
 //PrintBoxDebug.PrintWithDimensions(horizontalBoxes);

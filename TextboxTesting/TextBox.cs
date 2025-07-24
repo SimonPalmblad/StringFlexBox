@@ -41,7 +41,7 @@ public class TextBox : StringFlexBox
     }
 
     public TextBox(string text, int textWidth, Padding padding)
-    : this(text, textWidth, padding, FlexBoxBorder.Default)
+        : this(text, textWidth, padding, FlexBoxBorder.Default)
     {
 
     }

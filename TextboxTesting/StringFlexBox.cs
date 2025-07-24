@@ -1,9 +1,10 @@
-﻿using System.Security.Cryptography;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
 using System.Text;
 
 public enum TextboxCorners { topLeft , topRight, bottomLeft, bottomRight };
 
-public interface IFlexableTextContainer
+public interface IFlexibleTextContainer
 {
     public List<StringFlexBox> Sources { get; }
     public string FormattedText { get; }
@@ -20,7 +21,7 @@ public interface IFlexableTextContainer
     public int Rows();
 }
 
-public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
+public abstract class StringFlexBox : IFlexibleTextContainer, IFormattableBox
 {
     protected int previousTextSize;
 
@@ -53,6 +54,7 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
     public int Width => BoxWidth();
     public int Height => BoxHeight();
 
+    //TODO: Fix implementation - needed for TextBox class.
     public StringFlexBox()
     {
         sources = new List<StringFlexBox>();
@@ -98,9 +100,7 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
     {                                                                                
         StringBuilder builder = new StringBuilder();
 
-        // ⚠ MIGHT BREAK EVERYTHING ELSE. FIX FOR TEXTBOX RESIZING ⚠  
         content.Clear();
-        // ⚠ MIGHT BREAK EVERYTHING ELSE. FIX FOR TEXTBOX RESIZING ⚠  
 
         #region Top Line logic
         builder.Append(TopLine()).AppendLine();
@@ -160,8 +160,6 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
                 texts.Add(Sources[s].TextAtLine(i));
                 
                 result.AppendLine();
-
-                // Store information in this class
                 builder.Append(result);
             }
         }
@@ -182,7 +180,6 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
 
     protected virtual void AppendLeftPadding(StringBuilder builder)
     {
-        // -2 is to offset for the vertical borders being added. Why 2???
         builder.Append(BorderStyle.LeftBorder + Padding.PaddingString(Padding.Side.Left));
     }
 
@@ -190,7 +187,6 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
     {
         // how much padding should be added 
         var widthOffset = Math.Max(widestSource.BoxWidth() - sources[sourceIndex].BoxWidth(), 0);
-        // -2 is to offset for the vertical borders being added. Why 2???
         builder.Append(Padding.PaddingString(Padding.Side.Right) + StringHelpers.Fill(widthOffset) + BorderStyle.RightBorder );
 
     }
@@ -219,8 +215,6 @@ public abstract class StringFlexBox : IFlexableTextContainer, IFormattableBox
     public virtual int BoxHeight()
     {
         return content.Count;
-        //return sources.Sum(x => x.Height)
-        //    + paddingHeightOffset;
     }
 
     
