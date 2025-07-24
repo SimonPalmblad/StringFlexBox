@@ -7,10 +7,10 @@ A library used for creating dynamic textboxes used to formatting strings in the 
 
 ## Demo and usage
 Below is a demonstration of use-cases for the String Flexbox library. It's meant both as a show-case and a tutorial for using the various functions available inside.
-1. [Creating TextBoxes](#1.-creating-textboxes)
-2. [Aligning TextBoxes relative to each other](#2.-a-box-within-a-box-within...)
-3. [Custom Borders](3.-customize-the-borders)
-4. [Custom Padding](4.-customizable-padding-options)
+1. [Creating TextBoxes](#1-creating-textboxes)
+2. [Aligning TextBoxes relative to each other](#2-a-box-within-a-box-within...)
+3. [Custom Borders](3-customize-the-borders)
+4. [Custom Padding](4-customizable-padding-options)
 
 >[!IMPORTANT]
 >Using pre-formatted text in the strings for this library is not currently supported.  
