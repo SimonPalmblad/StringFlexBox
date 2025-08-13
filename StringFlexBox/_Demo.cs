@@ -8,14 +8,14 @@
 
 // ______ DEMO DEFINITIONS ______ //
 #define printTextboxDemo
-//#define printBorderlessDemo
-//#define printBorderDemo
-//#define printCustomPaddingDemo
+// #define printBorderlessDemo
+// #define printBorderDemo
+// #define printCustomPaddingDemo
 
 // ______ WIP & EXPERIMENTAL FEATURES ______ //
-//#define printResizingDemo
+// #define printResizingDemo
 
-using TextboxRebuild.HelperClasses;
+using StringFlexBox;
 
 string text = "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.";
 string textShort1 = "This is just a little \n bit of text to keep in a box.\n Nr. 1";
@@ -28,10 +28,6 @@ TextBox textbox2 = new(text, 70, 4);
 TextBox textbox3 = new(textShort1, 20, 3);
 TextBox textbox4 = new(textShort2, 20, 5);
 TextBox textbox5 = new(textShort3, 30, 5);
-
-
-
-
 
 #region GitHub README Demos
 
@@ -47,10 +43,10 @@ TextBox textBoxDemoPadding = new(textDemoPadding, 20, 3);
 string textDemoSize = "You can set a specific size for your textbox. This is double the size of the previous ones.";
 TextBox textBoxDemoSize = new(textDemoSize, 40, 3);
 
-FlexBoxHorizontal horizontalBoxes = new(new List<StringFlexBox> { textBoxDemoBasic, textBoxDemoPadding }, new Padding(5));
-FlexBoxVertical verticalBoxes = new(new List<StringFlexBox> { textBoxDemoBasic, textBoxDemoPadding }, new Padding(2));
+FlexBoxHorizontal horizontalBoxes = new(new List<FlexBox> { textBoxDemoBasic, textBoxDemoPadding }, new Padding(5));
+FlexBoxVertical verticalBoxes = new((List<FlexBox>)new List<FlexBox> { textBoxDemoBasic, textBoxDemoPadding }, new Padding(2));
 
-FlexBoxHorizontal horizontalVerticalBoxes = new(new List<StringFlexBox> { verticalBoxes, horizontalBoxes }, new Padding(2));
+FlexBoxHorizontal horizontalVerticalBoxes = new(new List<FlexBox> { verticalBoxes, horizontalBoxes }, new Padding(2));
 Console.WriteLine(horizontalVerticalBoxes.FormattedText);
 #endif
 
@@ -64,7 +60,7 @@ Console.WriteLine(horizontalVerticalBoxes.FormattedText);
     string textBorderless2 = "This is bordered textbox.";
     TextBox textBoxBorderless2 = new(textBorderless2, 20, 5);
 
-    FlexBoxHorizontal horizontalBorderless = new(new List<StringFlexBox> { textBoxBorderless1, textBoxBorderless2 }, 5, FlexBoxBorder.None);
+    FlexBoxHorizontal horizontalBorderless = new(new List<FlexBox> { textBoxBorderless1, textBoxBorderless2 }, 5, FlexBoxBorder.None);
 
     Console.WriteLine(horizontalBorderless.FormattedText); 
     
@@ -87,7 +83,7 @@ Console.WriteLine(horizontalVerticalBoxes.FormattedText);
     string textCustomBorder2 = "This is just a normal textbox.";
     TextBox textBoxCustomBorder2 = new(textCustomBorder2, 20, 5);
 
-    FlexBoxHorizontal horizontalCustomBorder = new(new List<StringFlexBox> { textBoxCustomBorder1, textBoxCustomBorder2 }, 5, customBorder);
+    FlexBoxHorizontal horizontalCustomBorder = new(new List<FlexBox> { textBoxCustomBorder1, textBoxCustomBorder2 }, 5, customBorder);
 
     Console.WriteLine(horizontalCustomBorder.FormattedText); 
 
@@ -104,7 +100,7 @@ Console.WriteLine(horizontalVerticalBoxes.FormattedText);
     string customPaddingText2 = "A textbox with all paddings in different sizes. left: 1, right: 8, top: 2, bottom: 12, center: 0.";
     TextBox customPaddingTextBox2 = new(customPaddingText2, 20, new Padding(left: 1, right: 8, top: 2, bottom: 12, 0));
 
-    FlexBoxHorizontal horizontalCustomPadding = new(new List<StringFlexBox> { customPaddingTextBox1, customPaddingTextBox2 }, 0);
+    FlexBoxHorizontal horizontalCustomPadding = new(new List<FlexBox> { customPaddingTextBox1, customPaddingTextBox2 }, 0);
 
     Console.WriteLine(horizontalCustomPadding);
 

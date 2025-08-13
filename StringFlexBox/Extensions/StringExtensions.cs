@@ -7,6 +7,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
     enum Wrap {Normal, Formatted };
 
     public static class StringExtensions
