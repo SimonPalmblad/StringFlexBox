@@ -18,7 +18,12 @@ jobs:
 
       - name: Archive specific folder
         run: |
-          zip -r StringFlexBox-release-${GITHUB_REF_NAME}.zip StringFlexBox/ -x "*.git*" "*.gitignore" "*.gitattributes"
+          cp README.md StringFlexBox/
+
+          cd StringFlexBox
+          zip -r ../StringFlexBox-release-${GITHUB_REF_NAME}.zip . -x "*.git*" "*.gitignore" "*.gitattributes"
+          
+          rm StringFlexBox/README.md
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
