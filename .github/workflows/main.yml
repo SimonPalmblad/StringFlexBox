@@ -8,10 +8,11 @@ on:
 permissions:
   contents: write
 
+
+
 jobs:
   release:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -29,5 +30,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: StringFlexBox-release-${{ github.ref_name }}.zip
+          draft: true
+          prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
