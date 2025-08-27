@@ -1,4 +1,4 @@
-name: Release
+name: Create Release on new tag
 
 on:
   push:
@@ -7,8 +7,6 @@ on:
 
 permissions:
   contents: write
-
-
 
 jobs:
   release:
@@ -32,5 +30,16 @@ jobs:
           files: StringFlexBox-release-${{ github.ref_name }}.zip
           draft: true
           prerelease: true
+          title: Pre-release ${{ github.ref_name }}
+          body: |
+            ## Release notes
+            >[!IMPORTANT]
+            >As this is a hobby project it has not been optimized or tested for production environments so use at your own discretion.
+            
+            - Check out the [ReadMe](https://github.com/SimonPalmblad/StringFlexBox/blob/main/README.md) for instructions on how to use and implement this library.
+            
+            ## Installation
+            - Download StringFlexBox-release-${{ github.ref_name }}.zip.
+            - Extract and add the files to your local project directory.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
