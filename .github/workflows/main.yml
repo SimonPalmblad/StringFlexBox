@@ -23,7 +23,7 @@ jobs:
           cd StringFlexBox
           zip -r ../StringFlexBox-release-${GITHUB_REF_NAME}.zip . -x "*.git*" "*.gitignore" "*.gitattributes"
           
-          rm StringFlexBox/README.md
+          rm README.md
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
