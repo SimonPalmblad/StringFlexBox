@@ -13,13 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Archive folder
+      - name: Archive specific folder
         run: |
-          zip -r StringFlexBox-Release-${GITHUB_REF_NAME}.zip my-folder/ -x "*.git*" "*.gitignore" "*.gitattributes"
+          zip -r StringFlexBox-release-${GITHUB_REF_NAME}.zip StringFlexBox/ -x "*.git*" "*.gitignore" "*.gitattributes"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: release.zip
+          files: StringFlexBox-release-${GITHUB_REF_NAME}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
