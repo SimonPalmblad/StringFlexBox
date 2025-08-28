@@ -1,7 +1,6 @@
-
-/* 
+/*
  * This is a demo for the StringFlexBox library.
- * - Here you can see how to use the various features and functions available with examples of how they are rendered. 
+ * - Here you can see how to use the various features and functions available with examples of how they are rendered.
  * - Choose the demo(s) to display by uncommenting their respective definition below.
  * - WIP and experimental features have NOT been tested fully and may cause errors or crashes.
  */
@@ -15,6 +14,7 @@
 
 // ______ WIP & EXPERIMENTAL FEATURES ______ //
 // #define printResizingDemo
+
 #if useDemo
 using StringFlexBox;
 
@@ -29,7 +29,8 @@ string textDemoSize = "You can set a specific size for your textbox. This is dou
 TextBox textBoxDemoSize = new(textDemoSize, 40, 3);
 
 FlexBoxHorizontal horizontalBoxes = new(new List<FlexBox> { textBoxDemoBasic, textBoxDemoPadding }, new Padding(5));
-FlexBoxVertical verticalBoxes = new((List<FlexBox>)new List<FlexBox> { textBoxDemoBasic, textBoxDemoPadding }, new Padding(2));
+FlexBoxVertical verticalBoxes =
+ new((List<FlexBox>)new List<FlexBox> { textBoxDemoBasic, textBoxDemoPadding }, new Padding(2));
 
 FlexBoxHorizontal horizontalVerticalBoxes = new(new List<FlexBox> { verticalBoxes, horizontalBoxes }, new Padding(2));
 Console.WriteLine(horizontalVerticalBoxes.FormattedText);
@@ -37,16 +38,22 @@ Console.WriteLine(horizontalVerticalBoxes.FormattedText);
 
 #if printBorderlessDemo
     string textBorderless1 = "This is a textbox without any borders. ";
-    string textBorderless2 = "This is a textbox WITHOUT any borders and no padding. This has more text to test how well it handles word wrapping.";
+    string textBorderless2 =
+ "This is a textbox WITHOUT any borders and no padding. This has more text to test how well it handles word wrapping.";
     TextBox textBoxBorderless1 = new(textBorderless1, 30, 2, FlexBoxBorder.None);
     TextBox textBoxBorderless2 = new(textBorderless2, 30, 0, FlexBoxBorder.None);
-    string textBordered1 = "This is a bordered textbox without padding. It's going to have quite a lot of text so I can test out line breaks and see if anything breaks.";
+    string textBordered1 =
+ "This is a bordered textbox without padding. It's going to have quite a lot of text so I can test out line breaks and see if anything breaks.";
     TextBox textBoxBordered1 = new(textBordered1, 20, 0, FlexBoxBorder.Default);
     
-    FlexBoxHorizontal horizontalBorderless = new(new List<FlexBox> { textBoxBorderless1, textBoxBordered1, textBoxBorderless2 }, 0, FlexBoxBorder.None);
-    FlexBoxVertical vertBorderless1 = new(new List<FlexBox> { textBoxBorderless1, textBoxBordered1, textBoxBorderless2 }, 0, FlexBoxBorder.None);
-    FlexBoxVertical vertBorderless2 = new(new List<FlexBox> { textBoxBordered1/*, textBoxBordered1, textBoxBorderless2 */}, 5, FlexBoxBorder.Default);
-    FlexBoxHorizontal combined = new([vertBorderless1, horizontalBorderless], horizontalBorderless.Padding, FlexBoxBorder.Default);
+    FlexBoxHorizontal horizontalBorderless =
+ new(new List<FlexBox> { textBoxBorderless1, textBoxBordered1, textBoxBorderless2 }, 0, FlexBoxBorder.None);
+    FlexBoxVertical vertBorderless1 =
+ new(new List<FlexBox> { textBoxBorderless1, textBoxBordered1, textBoxBorderless2 }, 0, FlexBoxBorder.None);
+    FlexBoxVertical vertBorderless2 =
+ new(new List<FlexBox> { textBoxBordered1/*, textBoxBordered1, textBoxBorderless2 */}, 5, FlexBoxBorder.Default);
+    FlexBoxHorizontal combined =
+ new([vertBorderless1, horizontalBorderless], horizontalBorderless.Padding, FlexBoxBorder.Default);
 
     Console.WriteLine(horizontalBorderless);
     Console.WriteLine(textBoxBordered1);
@@ -69,7 +76,8 @@ Console.WriteLine(horizontalVerticalBoxes.FormattedText);
     string textCustomBorder2 = "This is just a normal textbox.";
     TextBox textBoxCustomBorder2 = new(textCustomBorder2, 20, 5);
 
-    FlexBoxHorizontal horizontalCustomBorder = new(new List<FlexBox> { textBoxCustomBorder1, textBoxCustomBorder2 }, 5, customBorder);
+    FlexBoxHorizontal horizontalCustomBorder =
+ new(new List<FlexBox> { textBoxCustomBorder1, textBoxCustomBorder2 }, 5, customBorder);
 
     Console.WriteLine(horizontalCustomBorder.FormattedText); 
 
@@ -77,12 +85,15 @@ Console.WriteLine(horizontalVerticalBoxes.FormattedText);
 
 #if printCustomPaddingDemo
     string customPaddingText1 = "This is a textbox with horizontal padding 3 and vertical padding 10.";
-    TextBox customPaddingTextBox1 = new(customPaddingText1, 20, new Padding(horizontalPadding: 3, verticalPadding: 10, centerPadding: 0));
+    TextBox customPaddingTextBox1 =
+ new(customPaddingText1, 20, new Padding(horizontalPadding: 3, verticalPadding: 10, centerPadding: 0));
 
-    string customPaddingText2 = "A textbox with all paddings in different sizes. left: 1, right: 8, top: 2, bottom: 12, center: 0.";
+    string customPaddingText2 =
+ "A textbox with all paddings in different sizes. left: 1, right: 8, top: 2, bottom: 12, center: 0.";
     TextBox customPaddingTextBox2 = new(customPaddingText2, 20, new Padding(left: 1, right: 8, top: 2, bottom: 12, 0));
 
-    FlexBoxHorizontal horizontalCustomPadding = new(new List<FlexBox> { customPaddingTextBox1, customPaddingTextBox2 }, 0);
+    FlexBoxHorizontal horizontalCustomPadding =
+ new(new List<FlexBox> { customPaddingTextBox1, customPaddingTextBox2 }, 0);
 
     Console.WriteLine(horizontalCustomPadding);
 
