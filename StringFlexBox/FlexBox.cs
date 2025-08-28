@@ -23,32 +23,31 @@ namespace StringFlexBox
 
     public abstract class FlexBox : IFlexibleTextContainer, IFormattableBox
     {
-        protected int previousTextSize;
+        protected int m_PreviousTextSize;
 
-        protected List<FlexBox> sources;
+        protected List<FlexBox> m_Sources;
     
-        protected string formattedText = string.Empty;
-        protected string textWithoutEscapeChars = string.Empty;
-        protected int width = 0;
-        protected int height = 0;
+        protected string m_FormattedText = string.Empty;
+        protected string m_TextWithoutEscapeChars = string.Empty;
+        protected int m_Width = 0;
+        protected int m_Height = 0;
 
-        protected int paddingWidthOffset = 0;
-        protected int paddingHeightOffset = 0;
+        protected int m_PaddingWidthOffset = 0;
+        protected int m_PaddingHeightOffset = 0;
 
+        protected FlexBox m_WidestSource;
+        protected FlexBox m_TallestSource;
 
-        protected FlexBox widestSource;
-        protected FlexBox tallestSource;
+        protected List<string> m_Texts = new List<string>();
+        protected List<string> m_Content = new List<string>();
 
-        protected List<string> texts = new List<string>();
-        protected List<string> content = new List<string>();
+        protected bool m_IsDirty = true;
 
-        protected bool isDirty = true;
-
-        public List<FlexBox> Sources => sources;
+        public List<FlexBox> Sources => m_Sources;
         public Padding Padding = new Padding();
         public FlexBoxBorder BorderStyle = FlexBoxBorder.Default;
 
-        public virtual string FormattedText => formattedText;
+        public virtual string FormattedText => m_FormattedText;
         public virtual string TextWithoutEscapeChars => throw new NotImplementedException();
 
         public int Width => BoxWidth();
@@ -57,17 +56,17 @@ namespace StringFlexBox
         //TODO: Fix implementation - needed for TextBox class.
         public FlexBox()
         {
-            sources = new List<FlexBox>();
+            m_Sources = new List<FlexBox>();
         }
 
         public FlexBox(List<FlexBox> sources, Padding padding, FlexBoxBorder borderStyle)
         {
-            this.sources = sources;
+            this.m_Sources = sources;
             Padding = padding;
             BorderStyle = borderStyle;
 
-            widestSource = sources.OrderByDescending(x => x.Width).First();
-            tallestSource = sources.OrderByDescending(x => x.Height).First();
+            m_WidestSource = sources.OrderByDescending(x => x.Width).First();
+            m_TallestSource = sources.OrderByDescending(x => x.Height).First();
         }
 
         public FlexBox(List<FlexBox> sources, int padding)
@@ -101,13 +100,13 @@ namespace StringFlexBox
         protected virtual string BuildTextBox(int _paddingWidthOffset = 2)
         {                                                                                
             StringBuilder builder = new StringBuilder();
-            content.Clear();
+            m_Content.Clear();
 
             // ____ CREATE TOP OF BOX ____ //            
             if (DrawBorder)
             {
                 builder.Append(TopLine()).AppendLine();
-                content.Add(TopLine());
+                m_Content.Add(TopLine());
             }
             
             AppendTopPadding(builder);
@@ -121,12 +120,12 @@ namespace StringFlexBox
             if (DrawBorder)
             {
                 builder.Append(BottomLine()).AppendLine();
-                content.Add(BottomLine());
+                m_Content.Add(BottomLine());
                 
-                paddingWidthOffset = _paddingWidthOffset;
+                m_PaddingWidthOffset = _paddingWidthOffset;
             }
 
-            isDirty = false;
+            m_IsDirty = false;
             return builder.ToString();
         }
 
@@ -159,8 +158,8 @@ namespace StringFlexBox
                     result.Append(newLineRemoved);
                     AppendRightPadding(result, s);
                
-                    content.Add(result.ToString());
-                    texts.Add(Sources[s].TextAtLine(i));
+                    m_Content.Add(result.ToString());
+                    m_Texts.Add(Sources[s].TextAtLine(i));
                     
                     // if (DrawBorder)
                         result.AppendLine();
@@ -177,7 +176,7 @@ namespace StringFlexBox
         protected virtual void AppendBottomPadding(StringBuilder builder)
         {
             var botPaddingContent = VerticalPadding(Padding.Side.Bottom);
-            paddingHeightOffset += VerticalPaddingConversion(Padding.GetSide(Padding.Side.Bottom));
+            m_PaddingHeightOffset += VerticalPaddingConversion(Padding.GetSide(Padding.Side.Bottom));
             builder.Append(botPaddingContent);
         }
 
@@ -189,7 +188,7 @@ namespace StringFlexBox
         protected virtual void AppendRightPadding(StringBuilder builder, int sourceIndex)
         {
             // Amount of padding and empty space to add
-            var widthOffset = Math.Max(widestSource.BoxWidth() - sources[sourceIndex].BoxWidth(), 0);
+            var widthOffset = Math.Max(m_WidestSource.BoxWidth() - m_Sources[sourceIndex].BoxWidth(), 0);
             builder.Append(Padding.PaddingString(Padding.Side.Right) + StringHelpers.Fill(widthOffset) + BorderStyle.RightBorder );
         }
 
@@ -205,26 +204,26 @@ namespace StringFlexBox
 
         protected virtual void BuildTexts(int paddingWidthOffset = 2)
         {
-            formattedText = BuildTextBox(paddingWidthOffset);
-            textWithoutEscapeChars = BuildTextWithoutEscapeChars();
+            m_FormattedText = BuildTextBox(paddingWidthOffset);
+            m_TextWithoutEscapeChars = BuildTextWithoutEscapeChars();
         }
 
         protected virtual string BuildTextWithoutEscapeChars() =>
-            formattedText.RemoveNewLineEndings();
+            m_FormattedText.RemoveNewLineEndings();
 
 
         #region FormattableBox Implementation
         public virtual int BoxHeight()
         {
-            return content.Count;
+            return m_Content.Count;
         }
 
     
         public virtual int BoxWidth()
         {
-            var result = widestSource.BoxWidth()
+            var result = m_WidestSource.BoxWidth()
                          + HorizontalPadding()
-                         + paddingWidthOffset;
+                         + m_PaddingWidthOffset;
         
             return result;
         }
@@ -236,13 +235,13 @@ namespace StringFlexBox
         /// Full content including borders and padding.
         /// </summary>
         /// <returns>A list representing the content.</returns>
-        public List<string> Content() => content;
+        public List<string> Content() => m_Content;
 
         /// <summary>
         /// The content without padding and borders.
         /// </summary>
         /// <returns>A list represting the formatted text.</returns>
-        public List<string> Texts() => texts;
+        public List<string> Texts() => m_Texts;
 
         /// <summary>
         /// Full content at the given line index.
@@ -250,7 +249,7 @@ namespace StringFlexBox
         /// <param name="line">Line index to return.</param>
         /// <returns>The content at given line, if there is any. Otherwise string.Empty.</returns>
         public string ContentAtLine(int line) =>
-            line < content.Count ? content[line]
+            line < m_Content.Count ? m_Content[line]
                 : string.Empty;
 
         /// <summary>
@@ -259,10 +258,10 @@ namespace StringFlexBox
         /// <param name="line">Line index to return.</param>
         /// <returns>The content at given line, if there is any. Otherwise string.Empty.</returns>
         public string TextAtLine(int line) =>
-            line < texts.Count ? texts[line]
+            line < m_Texts.Count ? m_Texts[line]
                 : string.Empty;
 
-        public void AddToTexts(string text) => texts.Add(text);
+        public void AddToTexts(string text) => m_Texts.Add(text);
 
    
 
@@ -281,7 +280,7 @@ namespace StringFlexBox
                     $"{BorderStyle.RightBorder}";
             
 
-                content.Add(paddingString);
+                m_Content.Add(paddingString);
                 builder.AppendLine(paddingString);
             }
 

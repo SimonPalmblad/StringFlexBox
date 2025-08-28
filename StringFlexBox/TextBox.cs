@@ -4,20 +4,19 @@ namespace StringFlexBox
 {
     public class TextBox : FlexBox
     {
-        public static int minWidth { get; } = 10;
-        private string sourceText;
-        private int textWidth;
+        public static int MinWidth { get; } = 10;
+        private int m_TextWidth;
 
         public override string FormattedText
         {
             get
             {
-                if (isDirty)
+                if (m_IsDirty)
                 {
                     BuildTexts();
                 }
 
-                return formattedText;
+                return m_FormattedText;
             }
         }
 
@@ -25,11 +24,11 @@ namespace StringFlexBox
         {
             get
             {
-                if (isDirty)
+                if (m_IsDirty)
                 {
                     BuildTexts();
                 }
-                return textWithoutEscapeChars;
+                return m_TextWithoutEscapeChars;
             }
         }
 
@@ -61,35 +60,33 @@ namespace StringFlexBox
 
         private void InitializeTextBox(string text, int textWidth, Padding padding, FlexBoxBorder borderStyle, int wrapAllowance = 0)
         {
-            content.Clear();
-        
-            sourceText = text;
+            m_Content.Clear();
             Padding = padding;
             BorderStyle = borderStyle;
 
-            if (this.textWidth != 0)
+            if (this.m_TextWidth != 0)
             {
-                previousTextSize = this.textWidth;
+                m_PreviousTextSize = this.m_TextWidth;
             }
 
             else
             {
-                previousTextSize = textWidth;
+                m_PreviousTextSize = textWidth;
             }
 
-            this.textWidth = textWidth;
+            this.m_TextWidth = textWidth;
 
-            sources = new List<FlexBox>() { this };
+            m_Sources = new List<FlexBox>() { this };
 
-            StringBuilder builder = new StringBuilder();
+            // StringBuilder builder = new StringBuilder();
             // create a new word-wrapped string with an allowance for adding characters later on, formatted in a list of paragraphs
-            text = text.WordWrapWithList(textWidth - wrapAllowance, out var formatAsList);
-            texts = formatAsList;
+            text.WordWrapWithList(textWidth - wrapAllowance, out var formatAsList);
+            m_Texts = formatAsList;
 
-            int lines = (text.Length / SetBoxWidth(BoxWidth()));
+            // int lines = (text.Length / SetBoxWidth(BoxWidth()));
             BuildTexts();
 
-            height = content.Count;
+            m_Height = m_Content.Count;
         }
 
         protected override string TopLine() =>
@@ -111,21 +108,21 @@ namespace StringFlexBox
         protected override void AppendBottomPadding(StringBuilder builder)
         {
             var botPaddingContent = VerticalPadding(Padding.Side.Bottom);
-            paddingHeightOffset += VerticalPaddingConversion(Padding.GetSide(Padding.Side.Bottom));
+            m_PaddingHeightOffset += VerticalPaddingConversion(Padding.GetSide(Padding.Side.Bottom));
             builder.Append(botPaddingContent);
         }
 
         protected override void AppendContent(StringBuilder builder)
         {
-            for (int i = 0; i < texts.Count(); i++)
+            for (int i = 0; i < m_Texts.Count(); i++)
             {
-                var newLineRemoved = texts[i].Replace(Environment.NewLine, string.Empty);
+                var newLineRemoved = m_Texts[i].Replace(Environment.NewLine, string.Empty);
 
                 StringBuilder result = new StringBuilder();
                 AppendLeftPadding(result);
                 result.Append(newLineRemoved);
                 AppendTextLineEnd(result, i, SetBoxWidth(VerticalPaddingAmount));
-                content.Add(result.ToString());
+                m_Content.Add(result.ToString());
 
                 builder.Append(result);
                 
@@ -137,7 +134,7 @@ namespace StringFlexBox
         protected void AppendTextLineEnd(StringBuilder builder, int lineIndex, int width)
         {
             // subtract already added text on left side padding.
-            var lineFill = Math.Max(width - (texts[lineIndex].Count() + Padding.GetSide(Padding.Side.Left)), 0);
+            var lineFill = Math.Max(width - (m_Texts[lineIndex].Count() + Padding.GetSide(Padding.Side.Left)), 0);
 
             var result = StringHelpers.Fill(lineFill) + BorderStyle.RightBorder;
             builder.Append(result);
@@ -156,7 +153,7 @@ namespace StringFlexBox
                     $"{StringHelpers.Fill(width)}" +
                     $"{BorderStyle.RightBorder}";
 
-                content.Add(paddingString);
+                m_Content.Add(paddingString);
                 builder.AppendLine(paddingString);
             }
 
@@ -164,67 +161,72 @@ namespace StringFlexBox
         }
 
         public override int BoxWidth() =>
-            textWidth + HorizontalPadding() + paddingWidthOffset;
+            m_TextWidth + HorizontalPadding() + m_PaddingWidthOffset;
 
         public override int BoxHeight() =>
-            content.Count();
+            m_Content.Count();
 
-        public int TextWidth => textWidth;
+        public int TextWidth => m_TextWidth;
 
-        protected override int VerticalPaddingAmount => textWidth + HorizontalPadding();
+        protected override int VerticalPaddingAmount => m_TextWidth + HorizontalPadding();
 
-        public static int SetBoxWidth(int _width) => Math.Max(minWidth, _width);
+        public static int SetBoxWidth(int _width) => Math.Max(MinWidth, _width);
 
         public void Resize(int newWidth, int wrapAllowance  = 0)
         {
-            if(newWidth == textWidth)
+            if(newWidth == m_TextWidth)
                 return;
 
             string newSourceText = string.Empty;
 
-            for (int i = 0; i < texts.Count; i++)
+            for (int i = 0; i < m_Texts.Count; i++)
             {
-                newSourceText += texts[i].ToString() + " "; //adding back a space that was removed in the word wrapping
+                newSourceText += m_Texts[i] + " "; //adding back a space removed in the word wrapping
             }
 
             InitializeTextBox(newSourceText, newWidth, Padding, BorderStyle, wrapAllowance);
         }
 
-        private void AddContentToText(string _content, Action<string> contentAction)
+        public void ReplaceText(string text)
         {
-            var length = _content.Length;
+            InitializeTextBox(text, m_TextWidth, Padding, BorderStyle);
+        } 
+        
+        private void AddContentToText(string content, Action<string> contentAction)
+        {
+            var length = content.Length;
 
             if (TextWidth < length)
             {
                 return;
             }
 
-            Resize(previousTextSize + _content.Length, _content.Length);
-            contentAction(_content);
+            Resize(m_PreviousTextSize + content.Length, content.Length);
+            contentAction(content);
         
-            isDirty = true;
+            m_IsDirty = true;
 
         }
 
-        private void AddContentAtLine(string _content, int line, Action<string, int> contentAction)
+        private void AddContentAtLine(string content, int line, Action<string, int> contentAction)
         {
-            var length = _content.Length;
+            var length = content.Length;
 
             // Only perform content action if sources are textboxes.
-            foreach (FlexBox item in sources)
+            foreach (FlexBox item in m_Sources)
             {
            
-                if (previousTextSize < length || GetTextAtLine(line) == string.Empty)
+                if (m_PreviousTextSize < length || GetTextAtLine(line) == string.Empty)
                 {
                     continue;
                 }
 
-                Resize(previousTextSize + _content.Length, _content.Length);
+                Resize(m_PreviousTextSize + content.Length, content.Length);
 
-                contentAction(_content, line);
+                contentAction(content, line);
             }
 
-            isDirty = true;
+            m_IsDirty = true;
 
         }
 
@@ -232,7 +234,7 @@ namespace StringFlexBox
         /// <summary>
         /// Adds a string before all lines inside this object's text.
         /// </summary>
-        /// <param name="prefix">The prefixed string.</param>
+        /// <param name="text">The string to add as a prefix</param>
         public void AddLinePrefix(string text)
         {
             AddContentToText(text, AddLinePrefixAction);
@@ -243,22 +245,22 @@ namespace StringFlexBox
             AddContentAtLine(text, line, AddPrefixAtLineAction);
         }
 
-        // WARNING - Looping this keeps increasing the size. Safe-guard against resizing if text is already same size.
+        // WARNING - Looping this keeps increasing the size. Safeguard against resizing if the text is already the same size.
         private void AddPrefixAtLineAction(string text, int line)
         {
             var textAtLine = TextAtLine(line);
             textAtLine = text + textAtLine;
 
-            texts[line] = textAtLine;
+            m_Texts[line] = textAtLine;
         }
 
         private void AddLinePrefixAction(string text)
         {
             Resize(TextWidth + text.Length, text.Length);
 
-            for (int i = 0; i < texts.Count; i++)
+            for (int i = 0; i < m_Texts.Count; i++)
             {
-                texts[i] = text + texts[i];
+                m_Texts[i] = text + m_Texts[i];
             }
 
         }
@@ -277,9 +279,9 @@ namespace StringFlexBox
         {
             Resize(TextWidth + suffix.Length, suffix.Length);
 
-            for (int i = 0; i < texts.Count; i++)
+            for (int i = 0; i < m_Texts.Count; i++)
             {
-                texts[i] = texts[i] + suffix;
+                m_Texts[i] = m_Texts[i] + suffix;
             }
         }
 
@@ -290,7 +292,7 @@ namespace StringFlexBox
         /// <returns>A string without linebreak formatting.</returns>
         /// <exception cref="IndexOutOfRangeException">Line is greater than the TextBox's existing number of lines.</exception>       
         public string GetTextAtLine(int line) =>
-            line <= texts.Count ? texts[line]
+            line <= m_Texts.Count ? m_Texts[line]
                 : throw new IndexOutOfRangeException($"Line {line} is outside of maximum lines in the TextBox.");
 
 

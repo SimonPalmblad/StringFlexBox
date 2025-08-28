@@ -52,7 +52,7 @@ namespace StringFlexBox
 
         protected override void AppendContent(StringBuilder builder)
         {
-            for (int s = 0; s < tallestSource.Height; s++)
+            for (int s = 0; s < m_TallestSource.Height; s++)
             {
                 StringBuilder result = new StringBuilder();
                 AppendLeftPadding(result);
@@ -85,8 +85,8 @@ namespace StringFlexBox
 
                 AppendRightPadding(result, s);
 
-                content.Add(result.ToString());
-                texts.Add(formattedLine);
+                m_Content.Add(result.ToString());
+                m_Texts.Add(formattedLine);
 
                 // Store information in this class
                 builder.Append(result);
@@ -101,16 +101,16 @@ namespace StringFlexBox
 
 
         public override int BoxWidth() =>
-            sources.Sum(x => x.BoxWidth())
+            m_Sources.Sum(x => x.BoxWidth())
             + HorizontalPadding()
-            + paddingWidthOffset
+            + m_PaddingWidthOffset
             + centerPaddingTotal;
     
-        protected override int VerticalPaddingAmount => width;
+        protected override int VerticalPaddingAmount => m_Width;
 
         private void SetCenterPadding()
         {
-            for (int i = 0; i < sources.Count -1; i++)
+            for (int i = 0; i < m_Sources.Count -1; i++)
             {
                 centerPaddingTotal += Padding.GetSide(Padding.Side.Center);
             }
