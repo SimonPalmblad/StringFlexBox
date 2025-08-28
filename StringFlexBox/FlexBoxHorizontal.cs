@@ -12,6 +12,8 @@ namespace StringFlexBox
     {
         private int centerPaddingTotal = 0;
 
+        // ____ CONSTRUCTOR BLOCKS ____ //
+        
         public FlexBoxHorizontal(List<FlexBox> box, Padding padding, FlexBoxBorder borderStyle)
             :base(box, padding, borderStyle)
         {
@@ -34,14 +36,15 @@ namespace StringFlexBox
         {
         }
 
+        // ____ OVERRIDE METHODS ____ //
 
-        protected override void AppendTopOfBox(StringBuilder builder)
+        protected override void AppendTopPadding(StringBuilder builder)
         {
             var topPaddingContent = VerticalPadding(Padding.Side.Top);
             builder.Append(topPaddingContent);
         }
 
-        protected override void AppendBottomOfBox(StringBuilder builder)
+        protected override void AppendBottomPadding(StringBuilder builder)
         {
             var botPaddingContent = VerticalPadding(Padding.Side.Bottom);
             builder.Append(botPaddingContent);

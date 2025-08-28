@@ -102,13 +102,13 @@ namespace StringFlexBox
             $"{new string(BorderStyle.BottomBorder, VerticalPaddingAmount)}" +
             $"{BorderStyle.BottomRightCorner}";
 
-        protected override void AppendTopOfBox(StringBuilder builder)
+        protected override void AppendTopPadding(StringBuilder builder)
         {
             var topPaddingContent = VerticalPadding(Padding.Side.Top);
             builder.Append(topPaddingContent);
         }
 
-        protected override void AppendBottomOfBox(StringBuilder builder)
+        protected override void AppendBottomPadding(StringBuilder builder)
         {
             var botPaddingContent = VerticalPadding(Padding.Side.Bottom);
             paddingHeightOffset += VerticalPaddingConversion(Padding.GetSide(Padding.Side.Bottom));
@@ -127,8 +127,10 @@ namespace StringFlexBox
                 AppendTextLineEnd(result, i, SetBoxWidth(VerticalPaddingAmount));
                 content.Add(result.ToString());
 
-                builder.Append(result)
-                    .AppendLine();
+                builder.Append(result);
+                
+                // if(DrawBorder)
+                    builder.AppendLine();
             }
         }
 
@@ -170,7 +172,6 @@ namespace StringFlexBox
         public int TextWidth => textWidth;
 
         protected override int VerticalPaddingAmount => textWidth + HorizontalPadding();
-
 
         public static int SetBoxWidth(int _width) => Math.Max(minWidth, _width);
 

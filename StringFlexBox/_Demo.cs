@@ -3,12 +3,11 @@
  * This is a demo for the StringFlexBox library.
  * - Here you can see how to use the various features and functions available with examples of how they are rendered. 
  * - Choose the demo(s) to display by uncommenting their respective definition below.
- * - WIP and experimental features have not tested and may not work as intended or cause errors.
+ * - WIP and experimental features have NOT been tested fully and may cause errors or crashes.
  */
 
 // ______ DEMO DEFINITIONS ______ //
 // #define useDemo
-
 // #define printTextboxDemo
 // #define printBorderlessDemo
 // #define printBorderDemo
@@ -18,22 +17,6 @@
 // #define printResizingDemo
 #if useDemo
 using StringFlexBox;
-
-string text = "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.";
-string textShort1 = "This is just a little \n bit of text to keep in a box.\n Nr. 1";
-string textShort2 = "This is just a little bit of text to keep in a box. Nr. 2";
-string textShort3 = "This is just a little bit of text to keep in a box. Nr. 3";
-
-TextBox textbox1 = new(text, 50, new Padding(2));
-TextBox textbox2 = new(text, 70, 4);
-
-TextBox textbox3 = new(textShort1, 20, 3);
-TextBox textbox4 = new(textShort2, 20, 5);
-TextBox textbox5 = new(textShort3, 30, 5);
-
-#region GitHub README Demos
-
-#region TextBox DEMO
 
 #if printTextboxDemo
 string textDemoBasic = "This a string inside of a textbox with automatic word wrap.";
@@ -52,25 +35,26 @@ FlexBoxHorizontal horizontalVerticalBoxes = new(new List<FlexBox> { verticalBoxe
 Console.WriteLine(horizontalVerticalBoxes.FormattedText);
 #endif
 
-#endregion
-
-#region Borderless DEMO
-
 #if printBorderlessDemo
-    string textBorderless1 = "This is a textbox without any borders.";
-    TextBox textBoxBorderless1 = new(textBorderless1, 30, 3, FlexBoxBorder.None);
-    string textBorderless2 = "This is bordered textbox.";
-    TextBox textBoxBorderless2 = new(textBorderless2, 20, 5);
-
-    FlexBoxHorizontal horizontalBorderless = new(new List<FlexBox> { textBoxBorderless1, textBoxBorderless2 }, 5, FlexBoxBorder.None);
-
-    Console.WriteLine(horizontalBorderless.FormattedText); 
+    string textBorderless1 = "This is a textbox without any borders. ";
+    string textBorderless2 = "This is a textbox WITHOUT any borders and no padding. This has more text to test how well it handles word wrapping.";
+    TextBox textBoxBorderless1 = new(textBorderless1, 30, 2, FlexBoxBorder.None);
+    TextBox textBoxBorderless2 = new(textBorderless2, 30, 0, FlexBoxBorder.None);
+    string textBordered1 = "This is a bordered textbox without padding. It's going to have quite a lot of text so I can test out line breaks and see if anything breaks.";
+    TextBox textBoxBordered1 = new(textBordered1, 20, 0, FlexBoxBorder.Default);
     
+    FlexBoxHorizontal horizontalBorderless = new(new List<FlexBox> { textBoxBorderless1, textBoxBordered1, textBoxBorderless2 }, 0, FlexBoxBorder.None);
+    FlexBoxVertical vertBorderless1 = new(new List<FlexBox> { textBoxBorderless1, textBoxBordered1, textBoxBorderless2 }, 0, FlexBoxBorder.None);
+    FlexBoxVertical vertBorderless2 = new(new List<FlexBox> { textBoxBordered1/*, textBoxBordered1, textBoxBorderless2 */}, 5, FlexBoxBorder.Default);
+    FlexBoxHorizontal combined = new([vertBorderless1, horizontalBorderless], horizontalBorderless.Padding, FlexBoxBorder.Default);
+
+    Console.WriteLine(horizontalBorderless);
+    Console.WriteLine(textBoxBordered1);
+    Console.WriteLine(vertBorderless1);
+    Console.WriteLine(combined);
+
+
 #endif
-
-#endregion
-
-#region Custom border DEMO
 
 #if printBorderDemo
     FlexBoxBorder customBorder = new FlexBoxBorder
@@ -91,10 +75,6 @@ Console.WriteLine(horizontalVerticalBoxes.FormattedText);
 
 #endif
 
-#endregion
-
-#region Custom Padding DEMO
-
 #if printCustomPaddingDemo
     string customPaddingText1 = "This is a textbox with horizontal padding 3 and vertical padding 10.";
     TextBox customPaddingTextBox1 = new(customPaddingText1, 20, new Padding(horizontalPadding: 3, verticalPadding: 10, centerPadding: 0));
@@ -107,10 +87,6 @@ Console.WriteLine(horizontalVerticalBoxes.FormattedText);
     Console.WriteLine(horizontalCustomPadding);
 
 #endif
-
-#endregion
-
-#endregion
 
 #region WIP & Experimental
 

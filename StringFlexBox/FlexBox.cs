@@ -92,50 +92,53 @@ namespace StringFlexBox
             return sum;
         }
 
+        protected bool DrawBorder => TopLine().Any( s  => !s.Equals('\0'));
+        
         /// <summary>
-        /// Complies the object into a text box.
+        /// Compiles the object into a text box.
         /// </summary>
         /// <returns>The formatted box.</returns>
         protected virtual string BuildTextBox(int _paddingWidthOffset = 2)
         {                                                                                
             StringBuilder builder = new StringBuilder();
-
             content.Clear();
 
-            #region Top Line logic
-            builder.Append(TopLine()).AppendLine();
-            content.Add(TopLine());
-            #endregion
-
-            AppendTopOfBox(builder);
-
-            // All text content
+            // ____ CREATE TOP OF BOX ____ //            
+            if (DrawBorder)
+            {
+                builder.Append(TopLine()).AppendLine();
+                content.Add(TopLine());
+            }
+            
+            AppendTopPadding(builder);
+            
+            // ____ INSERT CONTENT IN THE CENTER ____ //
             AppendContent(builder);
-
-            AppendBottomOfBox(builder);
-
-            #region Bottom Line logic
-            builder.Append(BottomLine()).AppendLine();
-            content.Add(BottomLine());
-            #endregion
-
-            paddingWidthOffset = _paddingWidthOffset;
+            
+            // ____ CREATE BOTTOM OF BOX ____ //            
+            AppendBottomPadding(builder);
+           
+            if (DrawBorder)
+            {
+                builder.Append(BottomLine()).AppendLine();
+                content.Add(BottomLine());
+                
+                paddingWidthOffset = _paddingWidthOffset;
+            }
 
             isDirty = false;
             return builder.ToString();
         }
 
-
         /// <summary>
         /// Logic for adding the formatting at the top of this box.
         /// </summary>
         /// <param name="builder">The builder to append to.</param>
-        protected virtual void AppendTopOfBox(StringBuilder builder)
+        protected virtual void AppendTopPadding(StringBuilder builder)
         {
             #region Top line padding
             var topPaddingContent = VerticalPadding(Padding.Side.Top);
             builder.Append(topPaddingContent);
-
             #endregion
         }
 
@@ -158,24 +161,24 @@ namespace StringFlexBox
                
                     content.Add(result.ToString());
                     texts.Add(Sources[s].TextAtLine(i));
-                
-                    result.AppendLine();
+                    
+                    // if (DrawBorder)
+                        result.AppendLine();
+                    
                     builder.Append(result);
                 }
             }
         }
 
         /// <summary>
-        /// Logic for adding the formatting at the bottom of this box.
+        /// Appends the FlexBox bottom format to the supplied builder.
         /// </summary>
-        /// <param name="builder">The builder to append to.</param>
-        protected virtual void AppendBottomOfBox(StringBuilder builder)
+        /// <param name="builder">The StringBuilder to append to.</param>
+        protected virtual void AppendBottomPadding(StringBuilder builder)
         {
-            #region Bottom line padding
             var botPaddingContent = VerticalPadding(Padding.Side.Bottom);
             paddingHeightOffset += VerticalPaddingConversion(Padding.GetSide(Padding.Side.Bottom));
             builder.Append(botPaddingContent);
-            #endregion
         }
 
         protected virtual void AppendLeftPadding(StringBuilder builder)
@@ -185,10 +188,9 @@ namespace StringFlexBox
 
         protected virtual void AppendRightPadding(StringBuilder builder, int sourceIndex)
         {
-            // how much padding should be added 
+            // Amount of padding and empty space to add
             var widthOffset = Math.Max(widestSource.BoxWidth() - sources[sourceIndex].BoxWidth(), 0);
             builder.Append(Padding.PaddingString(Padding.Side.Right) + StringHelpers.Fill(widthOffset) + BorderStyle.RightBorder );
-
         }
 
         protected virtual string TopLine() =>

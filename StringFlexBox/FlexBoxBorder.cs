@@ -44,8 +44,18 @@
         #endregion
 
 
+        /// <summary>
+        /// The default border style. Draws a box.
+        /// </summary>
         public static FlexBoxBorder Default => new FlexBoxBorder(new char[] { '│', '│', '─', '─' }, new char[] { '┌', '┐', '└', '┘' });
-        public static FlexBoxBorder None => new FlexBoxBorder(new char[] { ' ', ' ', ' ', ' ' }, new char[] { ' ', ' ', ' ', ' ' });
+        /// <summary>
+        /// Hides the border characters but still draws empty characters in place of the border.
+        /// </summary>
+        public static FlexBoxBorder Invisible => new FlexBoxBorder(new char[] { ' ', ' ', ' ', ' ' }, new char[] { ' ', ' ', ' ', ' ' });
+        /// <summary>
+        /// Removes the border entirely.
+        /// </summary>
+        public static FlexBoxBorder None => new FlexBoxBorder(new char[] {'\0', '\0', '\0', '\0'}, new char[] {'\0', '\0', '\0', '\0'});
 
     }
 }
